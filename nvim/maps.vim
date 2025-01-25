@@ -19,9 +19,9 @@ nmap <Leader>tb :Tagbar<CR>
 nmap <Leader>to :TagbarOpenAutoClose<CR>
 "end tabgar
 nmap <Leader>s <Plug>(easymotion-overwin-f2)
+nmap <Leader>e <Plug>(easymotion-prefix)
 nmap <Leader>mt :call MyTemplateInit(input("My template :D "))<CR>
-nmap <Leader>ff :Files<CR>
-nmap <Leader>fg :GFiles<CR> 
+nmap <Leader>ff :GFiles<CR>
 nmap <Leader>fb :Buffers<CR> 
 nmap <Leader>ag :Ag<CR> 
 nmap <Leader>cc :Commits<CR> 
@@ -31,7 +31,7 @@ nmap <Leader>gg :G<CR>
 nmap <Leader>ga :Gwrite<CR>
 nmap <Leader>gr :Git restore --staged %<CR> 
 nmap <Leader>gc :Git commit<CR> 
-"
+
 " VN
 " Para que se copie el texto
 vnoremap <Leader>y "+y
@@ -49,6 +49,8 @@ nnoremap <Leader>cd <Plug>(coc-definition)
 nnoremap <Leader>cy <Plug>(coc-type-definition)
 nnoremap <Leader>ci <Plug>(coc-implementation)
 nnoremap <Leader>cr <Plug>(coc-references)
+
+inoremap <silent><expr> <C-s> CocActionAsync("showSignatureHelp")
 
 " Path completion with custom source command
 " inoremap <expr> <c-x><c-f> fzf#vim#complete#path('fd')
@@ -72,12 +74,17 @@ inoremap <silent><expr> <TAB>
       \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
 
-let g:UltiSnipsExpandTrigger = "<C-l>"
+autocmd CursorHold * silent call CocActionAsync('highlight')
+autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+
+" conflicto con auto pairs
+"let g:AutoPairsMapCR=0
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<CR>\<c-r>=coc#on_enter()\<CR>"
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 " Use <c-space> to trigger completion
 "  if has('nvim')
 "    inoremap <silent><expr> <c-space> coc#refresh()

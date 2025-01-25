@@ -1,79 +1,113 @@
-"Aquí están las conguraciones desde git
-ru! defaults.vim                " Use Enhanced Vim defaults
-set mouse=a                     " Usar el mouse en varios modos
-aug vimStartup | au! | aug END  " Revert last positioned jump, as it is defined below
-let g:skip_defaults_vim = 1     " Do not source defaults.vim again (after loading this system vimrc)
-
-set ai                          " set auto-indenting on for programming
-set showmatch                   " automatically show matching brackets. works like it does in bbedit.
-set vb                          " turn on the "visual bell" - which is much quieter than the "audio blink"
-set laststatus=2                " make the last line where the status is two lines deep so you can see status always
-set showmode                    " show the current mode
-set wildmode=list:longest,longest:full   " Better command line completion
-"----------------------------------------------------------------------------
-" Aquí estarán las configuraciones de mi Vim
-set expandtab                   " Usar espacios
-set tabstop=2                   " Establece la cantidad de espacios que representa un carácter de tabulación.
-set wildignore+=*.class
-set wildignore+=*.out
-" OK, in python files I need to change in python.vim in
-" /usr/share/nvim/runtime/ftplugin/python.vim
-set autoindent
-set softtabstop=2
-set shiftwidth=2                " Define la cantidad de espacios para cada nivel de indentación.
-
-set linebreak
-set breakindent
-set breakindentopt=shift:2
-set spelllang=es
+"--------------------------
+"--------------------------
+"INTERFAZ------------------
+"--------------------------
+"--------------------------
+" automatically show matching brackets. works like it does in bbedit.
+set showmatch                   
+" make the last line where the status is two lines deep so you can see status always
+set laststatus=2                
+" show the current mode
+set showmode                    
+" Better command line completion
+set wildmode=list:longest,longest:full   
 set relativenumber 
+set number
+set conceallevel=2
+set spelllang=es
+"Formato de como aparece el cursor
 set guicursor=n-v-c:block
 set guicursor+=a:blinkon1
-set number
-set numberwidth=1
-set clipboard=unnamed           "Debería dejarme copiar texto de la manera usual
-if has("syntax")                "sintaxis
-  syntax on
-endif
-set showcmd	                	" Show (partial) command in status line.
-set smartcase	             	" Do smart case matching
-set incsearch	            	" Incremental search
-set autowrite		            " Automatically save before commands like :next and :make
+
+
+
+"--------------------------
+"--------------------------
+"TABULACION----------------
+"--------------------------
+"--------------------------
+" set auto-indenting on for programming
+set ai                          
+" Usar espacios 
+set expandtab                  
+set autoindent
+" Define la cantidad de espacios para cada nivel de indentación.
+set shiftwidth=2                
+" Establece la cantidad de espacios que representa un carácter de tabulación.
+set tabstop=2                   
+" Para que las palabras de lineas largas no se rompan
+set linebreak
+"Para que se indenten
+set breakindent
+set breakindentopt=shift:2
+
+
+"--------------------------
+"--------------------------
+"IGNORAR-ARCHIVOS----------
+"--------------------------
+"--------------------------
+set wildignore+=*.class
+set wildignore+=*.out
+let g:skip_defaults_vim = 1     " Do not source defaults.vim again (after loading this system vimrc)
+" OK, in python files I need to change in python.vim in
+" /usr/share/nvim/runtime/ftplugin/python.vim
+
+"--------------------------
+"--------------------------
+"PREFERENCIAS DE COMP.-----
+"--------------------------
+"--------------------------
+"Para elegir el portapepeles
+set clipboard=unnamed           
+" Show (partial) command in status line.
+set showcmd	                	
+" Incremental search
+set incsearch	            	
 set encoding=utf-8              
+" Parra que barra de estado esté en todo momento
 set laststatus=2
 syntax enable
+
+"--------------------------
+"--------------------------
+"TERCEROS------------------
+"--------------------------
+"--------------------------
+let g:python3_host_prog = '/usr/bin/python3'
+
 " PLUGS---------------------------------------------------------------
-so ~/.config/nvim/my-plugins.vim
-so ~/.config/nvim/maps.vim
 call plug#begin('~/.config/nvim/plugged/')
 "Plug 'morhetz/gruvbox'                  " Tema
 " Plug 'folke/tokyonight.nvim'
 " Plug 'ghifarit53/tokyonight-vim'
-Plug 'shinchu/lightline-gruvbox.vim'    " Tema para la barra de estado
+Plug 'shinchu/lightline-gruvbox.vim'            " Tema para la barra de estado
 Plug 'ellisonleao/gruvbox.nvim'
-Plug 'sheerun/vim-polyglot'             " Mejor resaltado de sintaxys
+Plug 'sheerun/vim-polyglot'                     " Mejor resaltado de sintaxys
 Plug 'preservim/nerdtree'
-Plug 'easymotion/vim-easymotion'        " Para buscar facil
-Plug 'christoomey/vim-tmux-navigator'   " Para oper tener pantalla partida
-Plug 'jiangmiao/auto-pairs'             " Para que se cierren los paréntesis 
-Plug 'alvan/vim-closetag'               " Para etiquetas html
-Plug 'tpope/vim-surround'               " Para encapsular variables
+Plug 'easymotion/vim-easymotion'                " Para buscar facil
+Plug 'christoomey/vim-tmux-navigator'           " Para oper tener pantalla partida
+Plug 'jiangmiao/auto-pairs'                     " Para que se cierren los paréntesis 
+Plug 'alvan/vim-closetag'                       " Para etiquetas html
+Plug 'tpope/vim-surround'                       " Para encapsular variables
 Plug 'j-hui/vim-css-color'
 
-Plug 'maximbaz/lightline-ale'           " Para barra de abajo
-Plug 'itchyny/lightline.vim'            " Para colores barra de estado
+Plug 'maximbaz/lightline-ale'                   " Para barra de abajo
+Plug 'itchyny/lightline.vim'                    " Para colores barra de estado
 " Plug 'mengelbrecht/lightline-bufferline'
 Plug 'tpope/vim-fugitive'
-"Plug 'dense-analysis/ale'              " Algún análisis después
-Plug 'yggdroot/indentline'              " Para mostrar linea de indentar
-Plug 'mattn/emmet-vim'                  " para html
-"Plug 'vim-airline/vim-airline'          " Para barra airline
-"Plug 'vim-airline/vim-airline-themes'   " Para los temas de airline
-Plug 'tibabit/vim-templates'            " Para las plantillas
+"Plug 'dense-analysis/ale'                      " Algún análisis después
+"Plug 'yggdroot/indentline'                     " Para mostrar linea de indentar
+Plug 'mattn/emmet-vim'                          " para html
+Plug 'lukas-reineke/indent-blankline.nvim'      "indent lines
+
+"Plug 'vim-airline/vim-airline'                 " Para barra airline
+"Plug 'vim-airline/vim-airline-themes'          " Para los temas de airline
+Plug 'tibabit/vim-templates'                    " Para las plantillas
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'ryanoasis/vim-devicons'             " plug para los íconos -- es lento
-Plug 'junegunn/goyo.vim'                " Plug to read very well
+" Plug 'junegunn/goyo.vim'                " Plug to read very well
 Plug 'neoclide/coc.nvim', {'branch': 'release'}   " coc to semantic support
 
 "Plug 'majutsushi/tagbar'              " Pane with tags para 'resumir' los métodos
@@ -91,20 +125,10 @@ Plug 'HiPhish/rainbow-delimiters.nvim'
 " https://neuron.zettel.page/zettelkasten -> para tomar notas
 "" Plug 'vim-pandoc/vim-pandoc-syntax'    " Pandoc syntax
 " Plug 'chrisbra/colorizer'              " Colorize color codes
-
-
-
-
-
 call plug#end()
 " --------------------------------------------------------------------
-
-"let g:gruvbox_contrast_dark= "hard" " Ponerle oscuro al tema
-"set background=dark
-"colorscheme gruvbox                 " Escoger el tema
-
-set background=dark " or light if you want light mode
-colorscheme gruvbox
+so ~/.config/nvim/my-plugins.vim
+so ~/.config/nvim/maps.vim
 
 "let g:gruvbox_italic=1
 "au FileType c,cpp,objc,javascript,java call rainbow#load()
@@ -121,11 +145,38 @@ require'nvim-treesitter.configs'.setup {
   }
   -- Otras configuraciones adicionales si es necesario
 }
+
+
+
+-- Color:
+--vim.cmd [[highlight LineaIndentacion guifg=#5e81ac gui=nocombine]]
+local hooks = require "ibl.hooks"
+require("ibl").setup { 
+  scope = { 
+    highlight = { "Conceal" } 
+  },
+  indent = { 
+    char = { "│", "|", "¦" },
+  } 
+}
+--hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+
 EOF
 
+set background=dark " or light if you want light mode
+colorscheme gruvbox
+
 let NERDTreeQuitOnOpen=1            " Para cerrar nerdtree
-"AUTOCOMMAND----------------------------------------------------------
+let NERDTreeShowLineNumbers=1
+"
+"--------------------------
+"--------------------------
+"AUTOCOMAND----------------
+"--------------------------
+"--------------------------
 autocmd FileType json setlocal formatprg=jq
+"autocmd FileType markdown setlocal textwidth=80
+
 
 "---------------------------------------------------------------------
 "
@@ -161,66 +212,26 @@ endif
 "------------------------------------------------------------------------------
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
-    " Set UTF-8 as the default encoding for commit messages
-    autocmd BufReadPre COMMIT_EDITMSG,MERGE_MSG,git-rebase-todo setlocal fileencoding=utf-8
+  " Set UTF-8 as the default encoding for commit messages
+  autocmd BufReadPre COMMIT_EDITMSG,MERGE_MSG,git-rebase-todo setlocal fileencoding=utf-8
 
-    " Remember the positions in files with some git-specific exceptions"
-    autocmd BufReadPost *
-      \ if line("'\"") > 0 && line("'\"") <= line("$")
-      \           && &filetype !~# 'commit\|gitrebase'
-      \           && expand("%") !~ "ADD_EDIT.patch"
-      \           && expand("%") !~ "addp-hunk-edit.diff" |
-      \   exe "normal! g`\"" |
-      \ endif
+  " Remember the positions in files with some git-specific exceptions"
+  autocmd BufReadPost *
+        \ if line("'\"") > 0 && line("'\"") <= line("$")
+        \           && &filetype !~# 'commit\|gitrebase'
+        \           && expand("%") !~ "ADD_EDIT.patch"
+        \           && expand("%") !~ "addp-hunk-edit.diff" |
+        \   exe "normal! g`\"" |
+        \ endif
 
-      autocmd BufNewFile,BufRead *.patch set filetype=diff
+  autocmd BufNewFile,BufRead *.patch set filetype=diff
 
-      autocmd Filetype diff
-      \ highlight WhiteSpaceEOL ctermbg=red |
-      \ match WhiteSpaceEOL /\(^+.*\)\@<=\s\+$/
+  autocmd Filetype diff
+        \ highlight WhiteSpaceEOL ctermbg=red |
+        \ match WhiteSpaceEOL /\(^+.*\)\@<=\s\+$/
 endif " has("autocmd")
 
 
-
-
-
-
-
-
-
-
-" Vim will load $VIMRUNTIME/defaults.vim if the user does not have a vimrc.
-" This happens after /etc/vim/vimrc(.local) are loaded, so it will override
-" any settings in these files.
-" If you don't want that to happen, uncomment the below line to prevent
-" defaults.vim from being loaded.
-" let g:skip_defaults_vim = 1
-
-" Uncomment the next line to make Vim more Vi-compatible
-" NOTE: debian.vim sets 'nocompatible'.  Setting 'compatible' changes numerous
-" options, so any other options should be set AFTER setting 'compatible'.
-"set compatible
-
-" Vim5 and later versions support syntax highlighting. Uncommenting the next
-" line enables syntax highlighting by default.
-
-" If using a dark background within the editing area and syntax highlighting
-" turn on this option as well
-
-" Uncomment the following to have Vim jump to the last position when
-" reopening a file
-"au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
-" Uncomment the following to have Vim load indentation rules and plugins
-" according to the detected filetype.
-"filetype plugin indent on
-
-" The following are commented out as they cause vim to behave a lot
-" differently from regular Vi. They are highly recommended though.
-"set ignorecase		" Do case insensitive matching
-"set hidden		" Hide buffers when they are abandoned
-
-" Source a global configuration file if available
 if filereadable("/etc/vim/vimrc.local")
   source /etc/vim/vimrc.local
 endif

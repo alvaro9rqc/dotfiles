@@ -1,0 +1,3 @@
+# Request get, important the final '?'
+GET https://jsonplaceholder.typicode.com/posts? title=="voluptatem doloribus"
+

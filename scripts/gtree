@@ -1,0 +1,3 @@
+#!/bin/bash
+files=$(git ls-files --ignored --exclude-standard --directory -o | sed 's/^/|/')
+tree -I "${files#?}"

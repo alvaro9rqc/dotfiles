@@ -131,8 +131,11 @@ if ! shopt -oq posix; then
   fi
 fi
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-export PATH=$PATH:/home/alvaro9rqc/nodejs/bin:/home/alvaro9rqc/.scripts/:/home/alvaro9rqc/.cargo/bin
+
+#source ~/.arduino-cli-completion.bash
+
+export PATH=$PATH:/home/alvaro9rqc/.scripts
+export PATH=$PATH:/home/alvaro9rqc/.cargo/bin
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:/home/alvaro9rqc/.arduino15/bin
 
@@ -140,8 +143,10 @@ export PATH=$PATH:/home/alvaro9rqc/.arduino15/bin
 export EDITOR='nvim'
 # Turso
 export PATH="$PATH:/home/alvaro9rqc/.turso"
-source ~/.arduino-cli-completion.bash
 
-# Added by nitric binary installer
-export PATH="$HOME/.nitric/bin:$PATH"
 
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+. "$HOME/.cargo/env"
+
+complete -C /usr/bin/terraform terraform

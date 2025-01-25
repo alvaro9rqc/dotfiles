@@ -1,23 +1,35 @@
-$ tmux attach-session -t 0
-[detached (from session 0)]
+# TMUX
+```bash
+# Recuperar sesión
+tmux attach-session -t 0
+#[detached (from session 0)]
 
-$ tmux ls
-0: 2 windows (created Wed Oct  9 15:35:31 2024)
-1: 1 windows (created Wed Oct  9 17:04:54 2024)
+# Listar sesiones
+tmux ls
+# 0: 2 windows (created Wed Oct  9 15:35:31 2024)
+# 1: 1 windows (created Wed Oct  9 17:04:54 2024)
 
-$ tmux rename-session -t 1 ta_ar
+# Renombrar sesión
+tmux rename-session -t 1 ta_ar
 
-$ tmux ls
-0: 2 windows (created Wed Oct  9 15:35:31 2024)
-ta_ar: 1 windows (created Wed Oct  9 17:04:54 2024)
+# tmux ls
+# 0: 2 windows (created Wed Oct  9 15:35:31 2024)
+# ta_ar: 1 windows (created Wed Oct  9 17:04:54 2024)
 
-$ tmux attach-session -t ta_ar
-[detached (from session ta_ar)]
+# Recuperar sesión con nombre
+tmux attach-session -t ta_ar
+# [detached (from session ta_ar)]
 
+# Iniciar sesión 
 tmux new-session -s libro
 
+```
 ---
+
+# VIM
+```vim
 set foldmethod=manual
+```
 
 vim
 Para usar folding basado en la indentación:
@@ -55,7 +67,6 @@ set foldlevel=<número>
 Configuración recomendada
 Si deseas activar el folding automáticamente con indentación, puedes configurar lo siguiente en tu init.vim:
 
-Copiar código
 set foldmethod=indent
 set foldlevel=99
 set foldenable
@@ -71,3 +82,6 @@ formato:
 Establece un programa de formateo y lo aplica con gq
 autocmd FileType json setlocal formatprg=jq
 
+
+para icpc:
+inoremap {<CR> {<CR>}<Esc>O
