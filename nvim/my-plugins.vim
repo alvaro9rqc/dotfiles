@@ -92,6 +92,9 @@ require("nvim-tree").setup({
   },
 })
 
+-- " =================
+-- " NOTE: Colorscheme support
+-- " =================
 require("gruvbox").setup({
   transparent_mode = true,
 })
