@@ -27,11 +27,15 @@ nmap <Leader>fb :Buffers<CR>
 nmap <Leader>ag :Ag<CR> 
 nmap <Leader>cc :Commits<CR> 
 
-"Vim fugitive
+
+" =================
+" NOTE: Fugitive nvim
+" =================
 nmap <Leader>gg :G<CR> 
 nmap <Leader>ga :Gwrite<CR>
 nmap <Leader>gr :Git restore --staged %<CR> 
 nmap <Leader>gc :Git commit<CR> 
+nmap <Leader>gd :Gvdiffsplit<CR> 
 
 " VN
 " Para que se copie el texto
