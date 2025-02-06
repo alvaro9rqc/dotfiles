@@ -1,11 +1,15 @@
-" Para airline
-" Para lineas de indentado--------------------------------
-let g:indentLine_char_list = ['│', '|']
-" Para cierre de etiquetas html
+" =================
+" NOTE: alvan/vim-closetag
+" =================
+" Close html tags
 let g:closetag_shortcut = '>'
-" Para barra de estado de maximbaz
-"let g:lightline = {}
-" Para rama main en barra de estado-----------------
+
+
+
+" =================
+" NOTE: itchyny/lightline.vim
+" =================
+" for git branch
 let g:lightline = {
       \ 'colorscheme': 'gruvbox',
       \ 'active': {
@@ -17,7 +21,12 @@ let g:lightline = {
       \ },
       \ }
 
-" Para mi configuración de plantillas
+
+
+
+" =================
+" NOTE: tibabit/vim-templates"
+" =================
 let g:tmpl_search_paths = ['~/.config/nvim/templates']
 let g:tmpl_auto_initialize = 0
 
@@ -26,16 +35,73 @@ function! MyTemplateInit(arg)
 endfunction
 
 
-" para lo íconos
-let g:WebDevIconsNerdTreeBeforeGlyphPadding = ''
-" para que nerd tree ignore archivos
-let NERDTreeIgnore = ['\.out$', '\.class$']
-"let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
-let g:NERDTreeDirArrowExpandable = " "
-let g:NERDTreeDirArrowCollapsible = " "
 
 
-" Para json
-" Activa el resaltado extendido
-let g:vim_json_syntax_highlight = 1
+lua <<EOF
 
+-- " =================
+-- " NOTE: treesitter
+-- " =================
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,              -- false deshabilita toda la extensión
+    -- disable = { "c", "rust" },  -- lista de lenguajes a deshabilitar
+  },
+  rainbow = {
+    enable = true,
+    extended_mode = true,
+    max_file_lines = nil,
+  }
+  -- Otras configuraciones adicionales si es necesario
+}
+
+
+-- " =================
+-- " NOTE: indent line
+-- " =================
+local hooks = require "ibl.hooks"
+require("ibl").setup { 
+  scope = { 
+    highlight = { "Conceal" } 
+  },
+  indent = { 
+    char = { "│", "|", "¦" },
+  } 
+}
+
+
+
+-- " =================
+-- " NOTE: tree explorer
+-- " =================
+require("nvim-tree").setup({
+  sort = {
+    sorter = "case_sensitive",
+  },
+  view = {
+    number = true,
+    relativenumber = true,
+  },
+  actions = {
+    open_file = {
+      quit_on_open = true, -- Cerrar el árbol al abrir un archivo
+    },
+  },
+  filters = {
+    dotfiles = true,
+  },
+})
+
+require("gruvbox").setup({
+  transparent_mode = true,
+})
+vim.cmd("colorscheme gruvbox")
+
+
+EOF
+
+set background=dark " or light if you want light mode
+
+
+"let NERDTreeQuitOnOpen=1            " Para cerrar nerdtree
+"let NERDTreeShowLineNumbers=1

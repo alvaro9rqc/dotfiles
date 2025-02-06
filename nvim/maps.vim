@@ -5,7 +5,8 @@ let g:user_emmet_leader_key='<A-e>'
 
 let mapleader=" "
 
-nmap <Leader>nt :NERDTreeFind<CR>
+"nmap <Leader>nt :NERDTreeFind<CR>
+nmap <Leader>te :NvimTreeOpen<CR>
 nmap <Leader>w :w<CR>
 nmap <Leader>q :q<CR>
 "Para regresar a otro tab:
@@ -78,7 +79,7 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 
 " conflicto con auto pairs
-"let g:AutoPairsMapCR=0
+let g:AutoPairsMapCR=0
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice
