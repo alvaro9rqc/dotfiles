@@ -1,6 +1,6 @@
 "--------------------------
 "--------------------------
-"INTERFAZ------------------
+"NOTE: INTERFAZ
 "--------------------------
 "--------------------------
 " automatically show matching brackets. works like it does in bbedit.
@@ -23,7 +23,7 @@ set guicursor+=a:blinkon1
 
 "--------------------------
 "--------------------------
-"TABULACION----------------
+"NOTE: TABULACION
 "--------------------------
 "--------------------------
 " set auto-indenting on for programming
@@ -44,7 +44,7 @@ set breakindentopt=shift:2
 
 "--------------------------
 "--------------------------
-"IGNORAR-ARCHIVOS----------
+"NOTE: IGNORAR-ARCHIVOS
 "--------------------------
 "--------------------------
 set wildignore+=*.class
@@ -69,6 +69,24 @@ set encoding=utf-8
 set laststatus=2
 syntax enable
 
+autocmd BufReadPre COMMIT_EDITMSG,MERGE_MSG,git-rebase-todo setlocal fileencoding=utf-8
+
+" Remember the positions in files with some git-specific exceptions"
+autocmd BufReadPost *
+  \ if line("'\"") > 0 && line("'\"") <= line("$")
+  \           && &filetype !~# 'commit\|gitrebase'
+  \           && expand("%") !~ "ADD_EDIT.patch"
+  \           && expand("%") !~ "addp-hunk-edit.diff" |
+  \   exe "normal! g`\"" |
+  \ endif
+
+  autocmd BufNewFile,BufRead *.patch set filetype=diff
+
+  autocmd Filetype diff
+  \ highlight WhiteSpaceEOL ctermbg=red |
+  \ match WhiteSpaceEOL /\(^+.*\)\@<=\s\+$/
+
+
 "--------------------------
 "--------------------------
 "TERCEROS------------------
@@ -80,7 +98,7 @@ let g:python3_host_prog = '/usr/bin/python3'
 call plug#begin('~/.config/nvim/plugged/')
 Plug 'shinchu/lightline-gruvbox.vim'            " Tema para la barra de estado
 Plug 'ellisonleao/gruvbox.nvim'
-Plug 'preservim/nerdtree'
+"Plug 'preservim/nerdtree'
 Plug 'easymotion/vim-easymotion'                " Para buscar facil
 Plug 'christoomey/vim-tmux-navigator'           " Para oper tener pantalla partida
 Plug 'jiangmiao/auto-pairs'                     " Para que se cierren los paréntesis 
