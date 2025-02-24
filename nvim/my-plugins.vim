@@ -31,11 +31,25 @@ let g:tmpl_search_paths = ['~/.config/nvim/templates']
 let g:tmpl_auto_initialize = 0
 
 function! MyTemplateInit(arg)
-      execute ':TemplateInit ' . a:arg
+  execute ':TemplateInit ' . a:arg
 endfunction
 
 
-
+" =================
+" NOTE: fzf
+" =================
+let g:fzf_vim = {}
+"let g:fzf_vim.preview_window = ['right,50%, <70(up,40%)']
+let g:fzf_vim.preview_window = ['right,50%,<50(up,70%)', 'ctrl-h']
+"function! SetupLayout()
+"  if &columns > &lines  " Si la terminal es más ancha que alta
+"    let g:fzf_vim.preview_window = ['right,50%']
+"  else
+"    let g:fzf_vim.preview_window = ['up,50%']
+"  endif
+"endfunction
+"" Configurar al iniciar Neovim y cuando se redimensione la ventana
+"autocmd VimEnter,VimResized * call SetupLayout()
 
 lua <<EOF
 
