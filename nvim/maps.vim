@@ -1,12 +1,12 @@
 "PENDIENTE:
 "Poner en vez de tabnext, combinación de gt para poder poner números
-"EMMET VIM
+"NOTE: EMMET VIM
 let g:user_emmet_leader_key='<A-e>'
 
 let mapleader=" "
 
 "nmap <Leader>nt :NERDTreeFind<CR>
-nmap <Leader>te :NvimTreeOpen<CR>
+nmap <Leader>te :NvimTreeFindFile<CR>
 nmap <Leader>w :w<CR>
 nmap <Leader>q :q<CR>
 "Para regresar a otro tab:
