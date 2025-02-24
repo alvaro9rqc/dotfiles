@@ -66,7 +66,7 @@ inoremap <silent><expr> <C-s> CocActionAsync("showSignatureHelp")
 " imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " Word completion with custom spec with popup layout option
-inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'window': { 'width': 0.2, 'height': 0.9, 'xoffset': 1 }})
+"inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'window': { 'width': 0.2, 'height': 0.9, 'xoffset': 1 }})
 
 
 " coc:
