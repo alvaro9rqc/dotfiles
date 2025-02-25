@@ -1,0 +1,19 @@
+#!/bin/bash
+
+touch .nvimrc
+mkdir .vim
+touch ./.vim/coc-settings.json
+touch .gitignore
+
+if ! git rev-parse --is-inside-work-tree &>/dev/null; then
+  git init
+fi
+
+echo "
+*.nvimrc
+*.vim
+" >> .gitignore
+
+git add .gitignore
+
+git commit -m "Initialized configuration and repository files"
