@@ -88,6 +88,19 @@ require("ibl").setup {
 -- " =================
 -- " NOTE: tree explorer
 -- " =================
+local function custom_mapping_nvim_tree(bufnr)
+  local api = require "nvim-tree.api"
+
+  local function opts(desc)
+    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+  end
+
+  -- default mappings
+  api.config.mappings.default_on_attach(bufnr)
+
+  -- custom mappings
+  vim.keymap.del("n", "<C-e>", { buffer = bufnr })
+end
 require("nvim-tree").setup({
   sort = {
     sorter = "case_sensitive",
@@ -104,6 +117,7 @@ require("nvim-tree").setup({
   filters = {
     dotfiles = true,
   },
+  on_attach = custom_mapping_nvim_tree,
 })
 
 -- " =================
