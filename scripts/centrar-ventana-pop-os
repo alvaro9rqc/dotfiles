@@ -6,7 +6,7 @@ SCREEN_HEIGHT=$(xdpyinfo | awk '/dimensions/{print $2}' | cut -d'x' -f2)
 
 # Calcular un cuarto del tamaño de la pantalla
 WIN_WIDTH=$((SCREEN_WIDTH / 2))
-WIN_HEIGHT=$((SCREEN_HEIGHT / 2))
+WIN_HEIGHT=$((SCREEN_HEIGHT / 4 * 3))
 
 # Calcular posición centrada
 X_POS=$(( (SCREEN_WIDTH - WIN_WIDTH) / 2 ))
