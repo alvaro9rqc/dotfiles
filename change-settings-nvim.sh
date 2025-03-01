@@ -1,5 +1,8 @@
 #!/bin/bash
 
-echo "Cambiando a: $1"
-ln -sfn "$1" ~/.config/nvim
+file=$(readlink -f $1)
+echo "Se cambiará al siguiente fichero:"
+echo $file
+ln -sfn $file ~/.config/nvim
+
 
