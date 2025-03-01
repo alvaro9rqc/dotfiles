@@ -18,6 +18,7 @@ set spelllang=es
 "Formato de como aparece el cursor
 set guicursor=n-v-c:block
 set guicursor+=a:blinkon1
+set exrc
 
 
 
