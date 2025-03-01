@@ -2,3 +2,4 @@ nvim/plugged/*
 nvim/autoload/*
 nvim/notas.md
 *notas.md
+kitty/kitty.conf
