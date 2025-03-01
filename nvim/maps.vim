@@ -6,7 +6,7 @@ let g:user_emmet_leader_key='<A-e>'
 let mapleader=" "
 
 "nmap <Leader>nt :NERDTreeFind<CR>
-nmap <Leader>te :NvimTreeFindFile<CR>
+nmap <Leader>te :NvimTreeFindFile!<CR>
 nmap <Leader>w :w<CR>
 nmap <Leader>q :q<CR>
 "Para regresar a otro tab:
@@ -14,7 +14,7 @@ nmap <Leader>h gT
 "para ir a otro tab:
 nmap <Leader>l gt
 "para abrir nuevo tab:
-nmap <Leader>ta :tabe 
+nmap <Leader>ta :tabe %:h<C-d>/
 "Para el tabgar
 nmap <Leader>tb :Tagbar<CR>
 nmap <Leader>to :TagbarOpenAutoClose<CR>
@@ -22,7 +22,8 @@ nmap <Leader>to :TagbarOpenAutoClose<CR>
 nmap <Leader>s <Plug>(easymotion-overwin-f2)
 nmap <Leader>e <Plug>(easymotion-prefix)
 nmap <Leader>mt :call MyTemplateInit(input("My template :D "))<CR>
-nmap <Leader>ff :GFiles<CR>
+nmap <Leader>fg :GFiles<CR>
+nmap <Leader>ff :Files<CR>
 nmap <Leader>fb :Buffers<CR> 
 nmap <Leader>ag :Ag<CR> 
 nmap <Leader>cc :Commits<CR> 
