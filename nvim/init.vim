@@ -19,6 +19,7 @@ set spelllang=es
 set guicursor=n-v-c:block
 set guicursor+=a:blinkon1
 set exrc
+set cursorline
 
 
 
