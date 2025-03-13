@@ -55,6 +55,7 @@ nnoremap <Leader>cd <Plug>(coc-definition)
 nnoremap <Leader>cy <Plug>(coc-type-definition)
 nnoremap <Leader>ci <Plug>(coc-implementation)
 nnoremap <Leader>cr <Plug>(coc-references)
+nnoremap <Leader>ch :call CocActionAsync('highlight')<CR>
 
 inoremap <silent><expr> <C-s> CocActionAsync("showSignatureHelp")
 
@@ -81,6 +82,8 @@ inoremap <silent><expr> <TAB>
       \ coc#refresh()
 
 autocmd CursorHold * silent call CocActionAsync('highlight')
+highlight link CocHighlightText MsgSeparator
+
 autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 
 " conflicto con auto pairs
