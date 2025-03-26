@@ -108,6 +108,7 @@ printb "instalar herramientas como:
 - ctags
 - clangd
 - tree
+- ddcutil
 ?"
 read in
 if [[ "$in" == "y"  ]]; then
@@ -125,6 +126,7 @@ if [[ "$in" == "y"  ]]; then
   sudo dpkg -i ripgrep_14.1.0-1_amd64.deb
   git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
   ~/.fzf/install
+  sudo apt install ddcutil
 else
   printb "terminado"
 fi
@@ -165,6 +167,18 @@ else
   printb "terminado"
 fi
 
+#### NOTE: ranger
+
+# copias tal cual el repositorio de archcraft, luego para instalar dependencias has esto:
+#
+# sudo apt install libx11-dev libxres-dev libxext-dev
+# git clone "https://github.com/gokberkgunes/ueberzug-tabbed.git"
+
+# cd ueberzug-tabbed
+# pip install .
+# sudo apt install mediainfo
+# sudo apt install libimage-exiftool-perl
+# sudo apt install highlight
 
 ###############
 # Herramientas diversas
@@ -180,10 +194,10 @@ fi
 
 # instalar lo que es el diccionario para vim
 # dentro del directorio spell en vim
-wget --no-check-certificate https://ftp.vim.org/vim/runtime/spell/es.latin1.spl
-wget --no-check-certificate https://ftp.vim.org/vim/runtime/spell/es.latin1.sug
-wget --no-check-certificate https://ftp.vim.org/vim/runtime/spell/es.utf-8.spl
-wget --no-check-certificate https://ftp.vim.org/vim/runtime/spell/es.utf-8.sug
+#wget --no-check-certificate https://ftp.vim.org/vim/runtime/spell/es.latin1.spl
+#wget --no-check-certificate https://ftp.vim.org/vim/runtime/spell/es.latin1.sug
+#wget --no-check-certificate https://ftp.vim.org/vim/runtime/spell/es.utf-8.spl
+#wget --no-check-certificate https://ftp.vim.org/vim/runtime/spell/es.utf-8.sug
 
 
 
