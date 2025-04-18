@@ -1,8 +1,11 @@
 ---
-title: "Apuntes de {{CLASS}}"
+title: "Apuntes de {{CURSOR}}"
 author: "{{NAME}}"
 date: "{{DAY_FULL}} {{DATE}} de {{MONTH_FULL}}, {{YEAR}}"
 toc: true
 numbersections: true
 urlcolor: "cyan"
 ---
+
+---
+
