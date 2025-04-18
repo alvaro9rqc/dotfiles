@@ -29,6 +29,7 @@ let g:lightline = {
 " =================
 let g:tmpl_search_paths = ['~/.config/nvim/templates']
 let g:tmpl_auto_initialize = 0
+let g:tmpl_author_name = 'Alvaro R. Quispe Condori'
 
 function! MyTemplateInit(arg)
   execute ':TemplateInit ' . a:arg
