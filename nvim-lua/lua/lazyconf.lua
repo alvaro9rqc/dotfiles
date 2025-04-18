@@ -14,3 +14,14 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Setup lazy.nvim
+require("lazy").setup({
+  spec = {
+    -- my plugins
+    { import = "plugins" },
+    -- I can add more modules
+  },
+  -- automatically check for plugin updates
+  install = { colorscheme = { "gruvbox" } },
+  checker = { enabled = true },
+})

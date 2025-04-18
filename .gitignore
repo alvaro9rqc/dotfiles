@@ -3,3 +3,4 @@ nvim/autoload/*
 nvim/notas.md
 *notas.md
 kitty/kitty.conf
+lazy-lock.json

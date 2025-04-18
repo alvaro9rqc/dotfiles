@@ -27,8 +27,6 @@ vim.o.syntax = "enable"
 -- local .nvimrc
 vim.o.exrc = true
 vim.o.wildmode = 'list:longest,longest:full'
--- temporal
-vim.cmd("colorscheme industry")
 
 
 
@@ -38,3 +36,4 @@ vim.cmd("colorscheme industry")
 --------------------------
 --------------------------
 vim.o.spelllang = 'es'
+vim.o.shiftwidth = 2
