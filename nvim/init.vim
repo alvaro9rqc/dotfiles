@@ -129,6 +129,7 @@ Plug 'aquach/vim-http-client'         " Solicitud http
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 Plug 'HiPhish/rainbow-delimiters.nvim' 
+Plug 'github/copilot.vim'
 " Plug 'chrisbra/colorizer'              " Colorize color codes
 call plug#end()
 " --------------------------------------------------------------------

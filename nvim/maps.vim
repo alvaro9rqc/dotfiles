@@ -56,6 +56,15 @@ nnoremap <Leader>cy <Plug>(coc-type-definition)
 nnoremap <Leader>ci <Plug>(coc-implementation)
 nnoremap <Leader>cr <Plug>(coc-references)
 nnoremap <Leader>ch :call CocActionAsync('highlight')<CR>
+nnoremap <Leader>ct :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
 
 inoremap <silent><expr> <C-s> CocActionAsync("showSignatureHelp")
 
@@ -82,7 +91,7 @@ inoremap <silent><expr> <TAB>
       \ coc#refresh()
 
 autocmd CursorHold * silent call CocActionAsync('highlight')
-highlight link CocHighlightText MsgSeparator
+"highlight link CocHighlightText MsgSeparator
 
 autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 
@@ -113,6 +122,13 @@ endif
 
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+
+" Copilot.nvim
+
+imap <silent><script><expr> <C-l> copilot#Accept("\<CR>")
+let g:copilot_no_tab_map = v:true
+
 
 
 " Map the function to a command for easy access

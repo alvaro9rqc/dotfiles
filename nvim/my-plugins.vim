@@ -1,4 +1,8 @@
 " =================
+" NOTE: copilot/copilot.vim
+let g:copilot_enabled = 0
+"
+" =================
 " NOTE: alvan/vim-closetag
 " =================
 " Close html tags
