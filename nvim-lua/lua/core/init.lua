@@ -37,3 +37,5 @@ vim.o.wildmode = 'list:longest,longest:full'
 --------------------------
 vim.o.spelllang = 'es'
 vim.o.shiftwidth = 2
+
+require("core.maps")
