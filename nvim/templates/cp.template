@@ -9,9 +9,7 @@ using vl = vector<ll>;
 #define raya cerr << " ==================== " << endl;
 #define FOR(i, a, b) for (auto i = a; i < (b); ++i)
 #define sz(x) (int)(x).size()
-const ll INF = 1e18;
-const int MOD = 1e9 + 7;
-const int EPS = 1e-9;
+
 int main() {
   cin.tie(0)->sync_with_stdio(0);
   cin.exceptions(cin.failbit);
