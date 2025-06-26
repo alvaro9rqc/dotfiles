@@ -1,6 +1,6 @@
 {
   "snippets.ultisnips.directories": [
-    "~/.config/nvim/UltiSnips" 
+    "~/.config/nvim/UltiSnips"
   ],
   "snippets.ultisnips.pythonPrompt": false,
   "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/19.1.2/clangd_19.1.2/bin/clangd",
@@ -9,6 +9,11 @@
     "--query-driver=/usr/bin/g++"
   ],
   "coc.preferences.formatOnSave": true,
+  "workspace.rootPatterns": [
+    ".vim",
+    ".git",
+    "package.json",
+    "tsconfig.json",
+    ".prettierrc",
+  ]
 }
-
-
