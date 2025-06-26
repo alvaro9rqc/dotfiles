@@ -1,12 +1,21 @@
 " =================
 " NOTE: copilot/copilot.vim
 let g:copilot_enabled = 0
-"
+
 " =================
 " NOTE: alvan/vim-closetag
 " =================
 " Close html tags
 let g:closetag_shortcut = '>'
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.astro'
+
+" =================
+" NOTE: mattn/emmet-vim
+" =================
+" to astro files
+autocmd FileType astro EmmetInstall
+
+
 
 
 
