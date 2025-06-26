@@ -24,6 +24,7 @@ nmap <Leader>e <Plug>(easymotion-prefix)
 nmap <Leader>mt :call MyTemplateInit(input("My template :D "))<CR>
 nmap <Leader>fg :GFiles<CR>
 nmap <Leader>ff :Files<CR>
+nmap <Leader>fc :History:<CR>
 nmap <Leader>fb :Buffers<CR> 
 nmap <Leader>ag :Ag<CR> 
 nmap <Leader>cc :Commits<CR> 
