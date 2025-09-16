@@ -1,0 +1,6 @@
+```json
+{
+  "pyright.enable": true
+}
+```
+

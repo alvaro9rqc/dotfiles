@@ -1,21 +1,8 @@
 snippet fo "For loop"
-for (${1:auto} ${2:i} = ${3:0}; $2 < ${4}; ++$2) {
-	${0:// code here}
-}
+for (auto ${1:i} = ${2:0}; $1 < ${3}; $1${4:++}) ${5:}
 endsnippet
 
 snippet fe "For each loop"
-for(auto& ${1:i}: ${2}) {
-	${0:// start coding}
-}
-endsnippet
-
-snippet Fo "For loop without {}"
-for (${1:auto} ${2:i} = ${3:0}; $2 < ${4}; ++$2) ${0:// code here}
-endsnippet
-
-snippet Fe "For each loop without {}"
-for(auto& ${1:i}: ${2}) ${0:// start coding}
-
+for(auto& ${1:i}: ${2}) ${3:}
 endsnippet
 

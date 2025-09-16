@@ -1,4 +1,10 @@
 " =================
+" NOTE: coc
+
+autocmd BufRead * let b:coc_root_patterns = ['README.md']
+
+
+" =================
 " NOTE: copilot/copilot.vim
 let g:copilot_enabled = 0
 

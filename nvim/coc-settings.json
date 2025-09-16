@@ -9,11 +9,14 @@
     "--query-driver=/usr/bin/g++"
   ],
   "coc.preferences.formatOnSave": true,
+  "workspace.workspaceFolderCheckCwd": true,
   "workspace.rootPatterns": [
-    ".vim",
-    ".git",
+    "README.md",
+    ".vim/",
     "package.json",
     "tsconfig.json",
     ".prettierrc",
-  ]
+  ],
+  "pyright.enable": false,
+  "java.enabled": false,
 }

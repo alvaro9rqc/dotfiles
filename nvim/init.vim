@@ -144,5 +144,6 @@ so ~/.config/nvim/maps.vim
 autocmd FileType json setlocal formatprg=jq
 "autocmd FileType markdown setlocal textwidth=80
 
+"au filetype tex syntax region texZone start='\\begin{lstlisting}' end='\\end{lstlisting}' contains=NONE
 
 "hi Normal guibg=NONE ctermbg=NONE   
