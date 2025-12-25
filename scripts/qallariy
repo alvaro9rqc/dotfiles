@@ -1,5 +1,21 @@
 #!/bin/bash
 
+# Basic
+
+load_basic_utilities() {
+  touch .nvim.lua
+  mkdir .vim
+  touch ./.vim/coc-settings.json
+}
+
+# Default if there is not argument
+#
+
+if [ -z "$1" ]; then
+  load_basic_utilities
+  exit 0
+fi
+
 touch .nvimrc
 mkdir .vim
 touch ./.vim/coc-settings.json

@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Nombre mDNS de tu impresora (puedes cambiarlo si es distinto)
+PRINTER_HOSTNAME="EPSON4901AA.local"
+PRINTER_NAME="EPSON_L4160"
+IPP_PATH="/ipp/print"
+
+# 1. Obtener IP actual mediante avahi-resolve
+IP=$(avahi-resolve -n "$PRINTER_HOSTNAME" | awk '{print $2}')
+
+if [ -z "$IP" ]; then
+  echo "❌ No se pudo resolver la IP de $PRINTER_HOSTNAME"
+  exit 1
+fi
+
+echo "✅ IP de la impresora: $IP"
+
+# 2. Crear/Actualizar la impresora en CUPS
+sudo lpadmin -x "$PRINTER_NAME" 2>/dev/null   # Eliminar si ya existe (sin mostrar error)
+sudo lpadmin -p "$PRINTER_NAME" -v "ipp://$IP$IPP_PATH" -E -m everywhere
+
+# 3. Establecer como impresora predeterminada (opcional)
+sudo lpoptions -d "$PRINTER_NAME"
+
+echo "✅ Impresora $PRINTER_NAME configurada en $IP y establecida como predeterminada."
+
