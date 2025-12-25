@@ -3,7 +3,8 @@ return {
   dependencies = {
     "nvim-tree/nvim-web-devicons",
   },
-  lazy = false;
+  lazy = true;
+  cmd = { "NvimTreeToggle", "NvimTreeFindFile", "NvimTreeFocus" },
   opts = function()
     -- Mapeos personalizados por buffer
     local function custom_mapping_nvim_tree(bufnr)
