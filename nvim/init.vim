@@ -61,7 +61,7 @@ let g:skip_defaults_vim = 1     " Do not source defaults.vim again (after loadin
 "--------------------------
 "--------------------------
 "Para elegir el portapepeles
-set clipboard=unnamed           
+set clipboard=
 " Show (partial) command in status line.
 set showcmd	                	
 " Incremental search
@@ -70,7 +70,8 @@ set encoding=utf-8
 " Parra que barra de estado esté en todo momento
 set laststatus=2
 syntax enable
-
+" fast leader
+set timeoutlen=500
 autocmd BufReadPre COMMIT_EDITMSG,MERGE_MSG,git-rebase-todo setlocal fileencoding=utf-8
 
 " Remember the positions in files with some git-specific exceptions"
@@ -98,17 +99,19 @@ let g:python3_host_prog = '/usr/bin/python3'
 
 " PLUGS---------------------------------------------------------------
 call plug#begin('~/.config/nvim/plugged/')
-Plug 'shinchu/lightline-gruvbox.vim'            " Tema para la barra de estado
+"Plug 'shinchu/lightline-gruvbox.vim'            " Tema para la barra de estado
 Plug 'ellisonleao/gruvbox.nvim'
+Plug 'nvim-lualine/lualine.nvim'
 "Plug 'preservim/nerdtree'
 Plug 'easymotion/vim-easymotion'                " Para buscar facil
 Plug 'christoomey/vim-tmux-navigator'           " Para oper tener pantalla partida
 Plug 'jiangmiao/auto-pairs'                     " Para que se cierren los paréntesis 
-Plug 'alvan/vim-closetag'                       " Para etiquetas html
+Plug 'windwp/nvim-ts-autotag'
+"Plug 'alvan/vim-closetag'                       " Para etiquetas html
 Plug 'tpope/vim-surround'                       " Para encapsular variables
 Plug 'j-hui/vim-css-color'
 
-Plug 'itchyny/lightline.vim'                    " Para colores barra de estado
+"Plug 'itchyny/lightline.vim'                    " Para colores barra de estado
 Plug 'tpope/vim-fugitive'
 Plug 'mattn/emmet-vim'                          " para html
 Plug 'lukas-reineke/indent-blankline.nvim'      "indent lines
@@ -144,6 +147,14 @@ so ~/.config/nvim/maps.vim
 autocmd FileType json setlocal formatprg=jq
 "autocmd FileType markdown setlocal textwidth=80
 
-"au filetype tex syntax region texZone start='\\begin{lstlisting}' end='\\end{lstlisting}' contains=NONE
+au filetype tex syntax region texZone start='\\begin{lstlisting}' end='\\end{lstlisting}' contains=NONE
+au filetype tex syntax region texZone start='\\begin{minted}' end='\\end{minted}' contains=NONE
+
+" Guarda y restaura folds automáticamente
+augroup remember_folds
+  autocmd!
+  autocmd BufWinLeave * silent! mkview
+  autocmd BufWinEnter * silent! loadview
+augroup END
 
 "hi Normal guibg=NONE ctermbg=NONE   
