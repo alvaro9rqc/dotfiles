@@ -16,9 +16,16 @@ Y_POS=$(( (SCREEN_HEIGHT - WIN_HEIGHT) / 2 ))
 WIN_ID=$(xdotool getactivewindow)
 
 # Simular Super + G para hacerla flotante
-xdotool key Super+g
-sleep 0.2  # Pequeña pausa para asegurar que se active el modo flotante
+#xdotool key Super+g
+#sleep 0.2  # Pequeña pausa para asegurar que se active el modo flotante
 
 # Cambiar tamaño y posición
 wmctrl -ir "$WIN_ID" -e 0,$X_POS,$Y_POS,$WIN_WIDTH,$WIN_HEIGHT
-
+#wmctrl -ir "$WIN_ID" -b add,sticky
+if xprop -id "$WIN_ID" | grep -q "_NET_WM_STATE_STICKY"; then
+    # Si ya está, lo quitamos
+    wmctrl -ir "$WIN_ID" -b remove,sticky
+else
+    # Si no está, lo activamos
+    wmctrl -ir "$WIN_ID" -b add,sticky
+fi

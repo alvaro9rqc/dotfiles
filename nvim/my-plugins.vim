@@ -1,8 +1,27 @@
 " =================
+" NOTE: coc
+
+autocmd BufRead * let b:coc_root_patterns = ['README.md']
+
+
+" =================
+" NOTE: copilot/copilot.vim
+let g:copilot_enabled = 0
+
+" =================
 " NOTE: alvan/vim-closetag
 " =================
 " Close html tags
 let g:closetag_shortcut = '>'
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.astro'
+
+" =================
+" NOTE: mattn/emmet-vim
+" =================
+" to astro files
+autocmd FileType astro EmmetInstall
+
+
 
 
 
@@ -29,6 +48,7 @@ let g:lightline = {
 " =================
 let g:tmpl_search_paths = ['~/.config/nvim/templates']
 let g:tmpl_auto_initialize = 0
+let g:tmpl_author_name = 'Alvaro R. Quispe Condori'
 
 function! MyTemplateInit(arg)
   execute ':TemplateInit ' . a:arg

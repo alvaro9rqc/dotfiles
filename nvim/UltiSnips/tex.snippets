@@ -7,3 +7,10 @@ snippet figure "Insert figure"
 \end{figure}
 endsnippet
 
+snippet minted "Insert code with minted"
+\begin{listing}[${1:H}]
+	\inputminted[fontsize=${2:\small}]{${3:text}}{${4:your-file}}
+	\caption{${5:Caption}}
+	\label{lst:${6:act1}}
+\end{listing}
+endsnippet

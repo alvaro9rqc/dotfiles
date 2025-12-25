@@ -1,0 +1,40 @@
+\documentclass{report}
+%packages
+\usepackage[utf8]{inputenc} %para más paquetes
+\usepackage{graphicx} % Required for inserting images
+\usepackage{float} % Posicionamiento de imágenes, tablas
+\usepackage{multirow}
+\usepackage{csvsimple} 
+\usepackage{wrapfig} %imágenes al lado del texto
+\usepackage{array} % tablas de longitud fija
+\usepackage{geometry} % para tamaño del documento
+\usepackage[spanish]{babel}
+
+
+\title {Universidad nacional de San Agustin}
+\date{\today}
+\author{Alvaro Raúl Quispe Condori}
+
+
+\begin{document}
+\begin{titlepage}
+  \centering
+  {\bfseries\LARGE Universidad Nacional de San Agustín \par}
+  \vspace{1cm}
+  {\scshape\Large Facultad de Ingeniería de Producción y Servicios \par}
+  \vspace{1cm}
+  {\scshape\Large Escuela Profesional de Ingeniería de Sistemas \par}
+  \vspace{3cm}
+  {\scshape\Huge Psicología \par}
+  \vspace{3cm}
+  {\itshape\Large Actividad número 3 \par}
+  \vfill
+  %{\Large Estudiante: \author \par}
+  {\Large Estudiante: Alvaro Raúl Quispe Condori \par}
+  \vfill
+  {\Large 25 de Abril, Arequipa Perú \par}
+\end{titlepage}
+{{CURSOR}}
+\end{document}
+
+

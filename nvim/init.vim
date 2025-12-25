@@ -19,6 +19,7 @@ set spelllang=es
 set guicursor=n-v-c:block
 set guicursor+=a:blinkon1
 set exrc
+set cursorline
 
 
 
@@ -128,6 +129,7 @@ Plug 'aquach/vim-http-client'         " Solicitud http
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 Plug 'HiPhish/rainbow-delimiters.nvim' 
+Plug 'github/copilot.vim'
 " Plug 'chrisbra/colorizer'              " Colorize color codes
 call plug#end()
 " --------------------------------------------------------------------
@@ -142,5 +144,6 @@ so ~/.config/nvim/maps.vim
 autocmd FileType json setlocal formatprg=jq
 "autocmd FileType markdown setlocal textwidth=80
 
+"au filetype tex syntax region texZone start='\\begin{lstlisting}' end='\\end{lstlisting}' contains=NONE
 
 "hi Normal guibg=NONE ctermbg=NONE   
