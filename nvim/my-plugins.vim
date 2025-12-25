@@ -1,7 +1,7 @@
 " =================
 " NOTE: coc
 
-autocmd BufRead * let b:coc_root_patterns = ['README.md']
+autocmd BufRead * let b:coc_root_patterns = ['.vim/']
 
 
 " =================
@@ -12,8 +12,11 @@ let g:copilot_enabled = 0
 " NOTE: alvan/vim-closetag
 " =================
 " Close html tags
-let g:closetag_shortcut = '>'
-let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.astro'
+"let g:closetag_enable_react_fragment = 1
+"let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.jsx,*.tsx'
+"let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.tsx'
+"let g:closetag_filetypes = 'html,xhtml,phtml,javascriptreact,typescriptreact'
+"let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.php,*.jsx"
 
 " =================
 " NOTE: mattn/emmet-vim
@@ -85,9 +88,22 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
     extended_mode = true,
     max_file_lines = nil,
-  }
+  }, 
+  indent = {
+    enable = true,
+  },
   -- Otras configuraciones adicionales si es necesario
 }
+
+-- " =================
+-- " NOTE: lualine
+-- " =================
+require('lualine').setup()
+
+-- " =================
+-- " NOTE: ts-autotag
+-- " =================
+require('nvim-ts-autotag').setup({})
 
 
 -- " =================
