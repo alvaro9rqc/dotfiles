@@ -101,6 +101,7 @@ let g:python3_host_prog = '/usr/bin/python3'
 call plug#begin('~/.config/nvim/plugged/')
 "Plug 'shinchu/lightline-gruvbox.vim'            " Tema para la barra de estado
 Plug 'ellisonleao/gruvbox.nvim'
+Plug 'folke/tokyonight.nvim'
 Plug 'nvim-lualine/lualine.nvim'
 "Plug 'preservim/nerdtree'
 Plug 'easymotion/vim-easymotion'                " Para buscar facil

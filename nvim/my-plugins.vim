@@ -159,15 +159,15 @@ require("nvim-tree").setup({
 -- " =================
 -- " NOTE: Colorscheme support
 -- " =================
-require("gruvbox").setup({
-  transparent_mode = true,
+require("tokyonight").setup({
+  transparent = true,
 })
-vim.cmd("colorscheme gruvbox")
+vim.cmd("colorscheme tokyonight-moon")
 
 
 EOF
 
-set background=dark " or light if you want light mode
+"set background=dark " or light if you want light mode
 
 
 "let NERDTreeQuitOnOpen=1            " Para cerrar nerdtree
