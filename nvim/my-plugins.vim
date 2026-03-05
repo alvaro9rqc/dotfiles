@@ -163,8 +163,49 @@ require("tokyonight").setup({
   transparent = true,
 })
 vim.cmd("colorscheme tokyonight-moon")
+vim.api.nvim_set_hl(0, "Folded", { bg = "NONE" }) -- 'fg' opcional, ajusta según tu gusto
+vim.opt.fillchars = {
+  foldopen = "",
+  foldclose = "",
+}
 
+-- " =================
+-- " NOTE: treesitter
+-- " =================
 
+-- default settings
+require("origami").setup {
+  -- useLspFoldsWithTreesitterFallback = {
+  --   enabled = true,
+  --   foldmethodIfNeitherIsAvailable = "indent",
+  -- },
+  pauseFoldsOnSearch = true,
+  foldtext = {
+    enabled = true,
+    padding = 3,
+    lineCount = {
+      template = " %d lines",
+      hlgroup = "Comment",
+    },
+    diagnosticsCount = true,
+    gitsignsCount = true,
+    disableOnFt = { "snacks_picker_input" },
+  },
+  autoFold = {
+    enabled = true,
+    kinds = { "comment", "imports" },
+  },
+  foldKeymaps = {
+    setup = false, 
+    closeOnlyOnFirstColumn = false,
+    scrollLeftOnCaret = false,
+  },
+}
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldcolumn = "1"
 EOF
 
 "set background=dark " or light if you want light mode

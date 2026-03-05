@@ -130,11 +130,12 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}   " coc to semantic support
 Plug 'preservim/tagbar'              " Pane with tags para 'resumir' los métodos, es el mismo
 Plug 'aquach/vim-http-client'         " Solicitud http
 "Plug 'elzr/vim-json'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'branch': 'master'}
 
 Plug 'HiPhish/rainbow-delimiters.nvim' 
 Plug 'github/copilot.vim'
 " Plug 'chrisbra/colorizer'              " Colorize color codes
+Plug 'chrisgrieser/nvim-origami'
 call plug#end()
 " --------------------------------------------------------------------
 so ~/.config/nvim/my-plugins.vim
@@ -151,11 +152,13 @@ autocmd FileType json setlocal formatprg=jq
 au filetype tex syntax region texZone start='\\begin{lstlisting}' end='\\end{lstlisting}' contains=NONE
 au filetype tex syntax region texZone start='\\begin{minted}' end='\\end{minted}' contains=NONE
 
-" Guarda y restaura folds automáticamente
+" Guarda y restaura folds automáticamente 
 augroup remember_folds
   autocmd!
-  autocmd BufWinLeave * silent! mkview
-  autocmd BufWinEnter * silent! loadview
+  " El ?* evita errores intentando guardar vistas de NvimTree o buffers vacíos
+  autocmd BufWinLeave ?* silent! mkview
+  " Carga la vista e inmediatamente fuerza el método expr localmente
+  autocmd BufWinEnter ?* silent! loadview | silent! setlocal foldmethod=expr
 augroup END
 
 "hi Normal guibg=NONE ctermbg=NONE   
