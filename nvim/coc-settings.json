@@ -3,20 +3,16 @@
     "~/.config/nvim/UltiSnips"
   ],
   "snippets.ultisnips.pythonPrompt": false,
-  "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/19.1.2/clangd_19.1.2/bin/clangd",
-  "clangd.enabled": true,
+  "clangd.enabled": false,
+  "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/21.1.0/clangd_21.1.0/bin/clangd",
   "clangd.arguments": [
     "--query-driver=/usr/bin/g++"
   ],
   "coc.preferences.formatOnSave": true,
   "workspace.workspaceFolderCheckCwd": true,
   "workspace.rootPatterns": [
-    "README.md",
-    ".vim/",
-    "package.json",
-    "tsconfig.json",
-    ".prettierrc",
+    ".vim/"
   ],
   "pyright.enable": false,
-  "java.enabled": false,
+  "prettier.enable": false
 }

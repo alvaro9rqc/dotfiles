@@ -1,7 +1,7 @@
 " =================
 " NOTE: coc
 
-autocmd BufRead * let b:coc_root_patterns = ['README.md']
+autocmd BufRead * let b:coc_root_patterns = ['.vim/']
 
 
 " =================
@@ -12,8 +12,11 @@ let g:copilot_enabled = 0
 " NOTE: alvan/vim-closetag
 " =================
 " Close html tags
-let g:closetag_shortcut = '>'
-let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.astro'
+"let g:closetag_enable_react_fragment = 1
+"let g:closetag_filenames = '*.html,*.xhtml,*.phtml,*.jsx,*.tsx'
+"let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.tsx'
+"let g:closetag_filetypes = 'html,xhtml,phtml,javascriptreact,typescriptreact'
+"let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.php,*.jsx"
 
 " =================
 " NOTE: mattn/emmet-vim
@@ -85,9 +88,22 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
     extended_mode = true,
     max_file_lines = nil,
-  }
+  }, 
+  indent = {
+    enable = true,
+  },
   -- Otras configuraciones adicionales si es necesario
 }
+
+-- " =================
+-- " NOTE: lualine
+-- " =================
+require('lualine').setup()
+
+-- " =================
+-- " NOTE: ts-autotag
+-- " =================
+require('nvim-ts-autotag').setup({})
 
 
 -- " =================
@@ -143,15 +159,56 @@ require("nvim-tree").setup({
 -- " =================
 -- " NOTE: Colorscheme support
 -- " =================
-require("gruvbox").setup({
-  transparent_mode = true,
+require("tokyonight").setup({
+  transparent = true,
 })
-vim.cmd("colorscheme gruvbox")
+vim.cmd("colorscheme tokyonight-moon")
+vim.api.nvim_set_hl(0, "Folded", { bg = "NONE" }) -- 'fg' opcional, ajusta según tu gusto
+vim.opt.fillchars = {
+  foldopen = "",
+  foldclose = "",
+}
 
+-- " =================
+-- " NOTE: treesitter
+-- " =================
 
+-- default settings
+require("origami").setup {
+  -- useLspFoldsWithTreesitterFallback = {
+  --   enabled = true,
+  --   foldmethodIfNeitherIsAvailable = "indent",
+  -- },
+  pauseFoldsOnSearch = true,
+  foldtext = {
+    enabled = true,
+    padding = 3,
+    lineCount = {
+      template = " %d lines",
+      hlgroup = "Comment",
+    },
+    diagnosticsCount = true,
+    gitsignsCount = true,
+    disableOnFt = { "snacks_picker_input" },
+  },
+  autoFold = {
+    enabled = true,
+    kinds = { "comment", "imports" },
+  },
+  foldKeymaps = {
+    setup = false, 
+    closeOnlyOnFirstColumn = false,
+    scrollLeftOnCaret = false,
+  },
+}
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldcolumn = "1"
 EOF
 
-set background=dark " or light if you want light mode
+"set background=dark " or light if you want light mode
 
 
 "let NERDTreeQuitOnOpen=1            " Para cerrar nerdtree
