@@ -20,9 +20,16 @@ require("lazy").setup({
   spec = {
     -- my plugins
     { import = "plugins" },
+    { import = "plugins.ui" },
+    { import = "plugins.editor" },
+    { import = "plugins.coding" },
+    { import = "plugins.lsp" },
+    { import = "plugins.git" },
+    { import = "plugins.ai" },
     -- I can add more modules
   },
   -- automatically check for plugin updates
-  install = { colorscheme = { "gruvbox" } },
+  install = { colorscheme = { "tokyonight-moon", "gruvbox" } },
   checker = { enabled = true },
+  rocks = { enabled = false },
 })

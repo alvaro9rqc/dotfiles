@@ -1,163 +1,133 @@
-Perfecto, Alvaro. Si estás empezando con `lazy.nvim`, conocer las **opciones clave** que controlan el comportamiento de cada plugin es fundamental para una configuración limpia, rápida y eficiente.
+# Migración Neovim: resumen de implementación
 
-Aquí te explico las principales **variables/opciones** que puedes usar en cada plugin del array de `lazy.setup({ ... })`.
+## Qué hice
+
+Se migró la configuración de VimScript (`nvim/`) a Lua (`nvim-lua/`) con `lazy.nvim`, reorganizando plugins por dominio y modernizando el stack de edición, LSP y AI.
+
+También se corrigieron dos problemas críticos post-migración:
+
+1. **Error de arranque por `fillchars.foldclose` vacío**  
+   - Fix en `lua/core/init.lua`: `foldclose` ahora tiene un carácter válido.
+
+2. **Atajos no funcionando por imports incompletos de Lazy**  
+   - Fix en `lua/lazyconf.lua`: se agregaron imports explícitos de submódulos:
+     - `plugins.ui`
+     - `plugins.editor`
+     - `plugins.coding`
+     - `plugins.lsp`
+     - `plugins.git`
+     - `plugins.ai`
+
+Además, para eliminar warnings de healthcheck no relevantes a este setup:
+- `rocks = { enabled = false }` en `lua/lazyconf.lua`.
 
 ---
 
-### 🧩 Estructura general de un plugin
+## Arquitectura actual
 
-```lua
-{
-  "autor/repositorio",   -- string obligatoria
-  lazy = true,           -- carga perezosa
-  event = "InsertEnter", -- dispara la carga con eventos de Neovim
-  cmd = "Telescope",     -- carga si se ejecuta el comando
-  ft = "lua",            -- carga si el archivo es de tipo lua
-  priority = 1000,       -- ordena la carga (útil para temas)
-  dependencies = { ... },-- plugins que deben cargarse primero
-  config = function() ... end, -- configuración personalizada
-  opts = { ... },        -- config auto si el plugin lo permite
-  init = function() ... end, -- ejecuta algo antes de cargar
-  enabled = true,        -- puedes desactivar un plugin
-  build = "make",        -- para compilar después de instalar
-}
+```text
+nvim-lua/
+├── init.lua
+└── lua/
+    ├── core/
+    │   ├── init.lua
+    │   ├── maps.lua
+    │   ├── autocmds.lua
+    │   └── icons.lua
+    ├── lazyconf.lua
+    └── plugins/
+        ├── init.lua
+        ├── colorscheme.lua
+        ├── ui/
+        ├── editor/
+        ├── coding/
+        ├── lsp/
+        ├── git/
+        └── ai/
 ```
 
----
+### `core/`
+- Opciones base (`vim.o`, `vim.opt`)
+- keymaps globales
+- autocommands migrados desde VimScript
+- íconos compartidos
 
-## 🛠️ Opciones principales explicadas
-
-### `lazy` (boolean)
-
-* **`true`** → no carga al inicio, solo cuando se necesita.
-* **`false`** → carga inmediatamente al iniciar Neovim.
-* Por defecto es `true` si usas `event`, `cmd`, `ft`, etc.
-
-👉 Úsalo para acelerar el arranque.
+### `plugins/*`
+Plugins agrupados por responsabilidad para mantener orden y facilitar cambios puntuales.
 
 ---
 
-### `priority` (número)
+## Integración global `Pacha`
 
-* Determina el **orden de carga**. Mayor valor = más prioridad.
-* Útil para temas de colores o plugins que deben cargarse antes que otros.
+Sí, se usó tu global:
 
-```lua
-{ "catppuccin/nvim", priority = 1000, lazy = false }
-```
-
----
-
-### `event` (string o array)
-
-Carga el plugin al dispararse un evento de Neovim:
-
-* `"VimEnter"` → al iniciar Neovim.
-* `"BufReadPre"` → antes de abrir un archivo.
-* `"InsertEnter"` → al entrar en modo insertar.
-* `"BufWinEnter"` → cuando aparece una ventana con buffer.
-
-```lua
-{ "nvim-lualine/lualine.nvim", event = "VimEnter" }
-```
+- Definición en `init.lua`:
+  - `_G.Pacha = {}`
+  - `Pacha.icons = require("core.icons")`
+- Uso real en plugins:
+  - `lua/plugins/coding/blink.lua` usa `Pacha.icons.kinds` para íconos de completion.
+- Soporte LSP Lua:
+  - `lua/plugins/lsp/lspconfig.lua` declara `Pacha` como global para evitar falsos diagnósticos.
 
 ---
 
-### `cmd` (string o array)
+## Nuevas features por categoría
 
-* Carga el plugin **solo cuando se ejecuta el comando** dado.
+## UI
+- `lualine.nvim`: statusline moderna.
+- `indent-blankline.nvim`: guías de indentación.
+- `nvim-colorizer.lua`: colores inline.
+- `rainbow-delimiters.nvim`: delimitadores anidados por color.
+- `noice.nvim`: mejora de UI para mensajes/cmdline/LSP.
 
-```lua
-{ "nvim-tree/nvim-tree.lua", cmd = "NvimTreeToggle" }
-```
+## Editor
+- `snacks.nvim`: picker/notifier/dashboard.
+- `flash.nvim`: navegación rápida moderna.
+- `nvim-tree.lua`: explorador de archivos.
+- `nvim-surround`: operaciones de “surround”.
+- `nvim-autopairs`: autopares.
+- `nvim-origami`: folds avanzados.
+- `which-key.nvim`: descubrimiento de atajos.
+- `todo-comments.nvim`: navegación de TODO/FIXME/NOTE.
 
----
+## Coding
+- `nvim-treesitter` + `nvim-ts-autotag`.
+- `blink.cmp` con fuentes LSP/path/buffer/snippets/copilot.
+- `LuaSnip` + `friendly-snippets`.
+- snippets custom migrados (C++ y LaTeX).
+- `emmet-vim` para web/astro.
 
-### `ft` (filetype)
+## LSP y tooling
+- `mason.nvim` + `mason-lspconfig.nvim` para instalación de servidores.
+- `nvim-lspconfig` con keymaps y capacidades integradas.
+- `conform.nvim` para formato.
+- `nvim-lint` para linting.
 
-* Carga el plugin **solo si abres un archivo de cierto tipo**.
+## Git
+- `vim-fugitive`.
+- `gitsigns.nvim`.
 
-```lua
-{ "iamcco/markdown-preview.nvim", ft = "markdown" }
-```
-
----
-
-### `config` (función)
-
-* Ejecuta una función de configuración después de cargar el plugin.
-
-```lua
-config = function()
-  require("pluginname").setup({ ... })
-end
-```
-
----
-
-### `opts` (tabla)
-
-* Si el plugin **soporta configuración automática**, esto es más limpio que `config`.
-
-```lua
-opts = {
-  icons = true,
-  theme = "auto",
-}
-```
+## AI
+- `copilot.lua` (sugerencias inline).
+- `CopilotChat.nvim` (chat/acciones de código).
+- `avante.nvim` (flujo AI avanzado en editor).
 
 ---
 
-### `dependencies` (lista)
+## Atajos principales para probar
 
-* Plugins que deben cargarse antes que este.
-
-```lua
-dependencies = {
-  "nvim-tree/nvim-web-devicons"
-}
-```
-
----
-
-### `build` (string o función)
-
-* Si el plugin necesita compilación después de instalarse.
-
-```lua
-build = ":TSUpdate"
-```
+- `<leader>ff` → buscar archivos (Snacks picker)
+- `<leader>te` → revelar archivo en NvimTree
+- `s` → salto rápido (Flash)
+- `<leader>ac` → abrir Copilot Chat
+- `<leader>cd` → ir a definición (LSP)
+- `<leader>cf` → formatear buffer
 
 ---
 
-### `init` (función)
+## Flujo recomendado para validar
 
-* Se ejecuta antes de que el plugin sea cargado. Útil para definir variables globales.
-
-```lua
-init = function()
-  vim.g.some_plugin_setting = true
-end
-```
-
----
-
-### `enabled` (boolean)
-
-* Puedes desactivar temporalmente un plugin.
-
-```lua
-enabled = false
-```
-
----
-
-### 🗂️ Dónde ver todo esto
-
-La documentación **oficial** está en GitHub:
-👉 [https://github.com/folke/lazy.nvim#-plugin-spec](https://github.com/folke/lazy.nvim#-plugin-spec)
-
----
-
-¿Quieres que te dé una lista de eventos útiles (`event = ...`) o algunos trucos de rendimiento?
-
+1. `:Lazy sync`
+2. Reiniciar Neovim
+3. `:checkhealth`
+4. Probar atajos de la sección anterior
