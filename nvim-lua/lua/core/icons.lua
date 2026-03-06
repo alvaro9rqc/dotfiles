@@ -1,6 +1,6 @@
 return {
   misc = {
-    dots = "󰇘",
+    dots = "",
   },
   ft = {
     octo = " ",

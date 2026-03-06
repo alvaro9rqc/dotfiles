@@ -3,13 +3,17 @@ return {
   lazy = false,
   opts = {
     useLspFoldsWithTreesitterFallback = {
-      enabled = false,
+      enabled = true,
       foldmethodIfNeitherIsAvailable = "manual",
     },
     pauseFoldsOnSearch = true,
     foldtext = {
       enabled = true,
-      padding = 3,
+      padding = {
+        character = " ",
+        width = 3,
+        hlgroup = nil,
+      },
       lineCount = {
         template = " %d lines",
         hlgroup = "Comment",

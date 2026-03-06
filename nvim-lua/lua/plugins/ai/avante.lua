@@ -15,7 +15,7 @@ return {
     provider = "copilot",
     providers = {
       copilot = {
-        model = "gpt-4o",
+        model = "gpt-5.3-codex",
       },
     },
     behaviour = {
