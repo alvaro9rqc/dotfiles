@@ -67,13 +67,22 @@ autocmd('FileType', {
   pattern = '*',
   callback = function(args)
     local ft = vim.bo[args.buf].filetype
+    if ft == '' then return end -- ignore if no filetype is detected
+
     local lang = vim.treesitter.language.get_lang(ft) or ft
+
+    -- if is supported
+    local ok, parsers = pcall(require, 'nvim-treesitter.parsers')
+    if not ok or not parsers[lang] then
+      return -- Do nothing
+    end
 
     if pcall(vim.treesitter.start, args.buf) then
       vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
       vim.wo[0][0].foldmethod = 'expr'
       vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
     else
+      -- Just install if exits
       pcall(function() require("nvim-treesitter").install({ lang }) end)
     end
   end,
