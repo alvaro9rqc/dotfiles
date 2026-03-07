@@ -1,7 +1,3 @@
-local function copilot_is_active()
-  return #vim.lsp.get_clients({ name = "copilot", bufnr = 0 }) > 0
-end
-
 return {
   "saghen/blink.cmp",
   version = "1.*",
@@ -11,7 +7,7 @@ return {
   dependencies = {
     "rafamadriz/friendly-snippets",
     "L3MON4D3/LuaSnip",
-    "giuxtaposition/blink-cmp-copilot",
+    -- Eliminado: "giuxtaposition/blink-cmp-copilot"
   },
   event = { "InsertEnter", "CmdlineEnter" },
   ---@module 'blink.cmp'
@@ -21,22 +17,8 @@ return {
       preset = "luasnip",
     },
     sources = {
-      default = function()
-        local providers = { "lsp", "path", "snippets", "buffer" }
-        if copilot_is_active() then
-          table.insert(providers, 1, "copilot")
-        end
-        return providers
-      end,
-      providers = {
-        copilot = {
-          name = "copilot",
-          module = "blink-cmp-copilot",
-          score_offset = 100,
-          async = true,
-          enabled = copilot_is_active,
-        },
-      },
+      -- Ahora es una lista estática, sin inyecciones raras
+      default = { "lsp", "path", "snippets", "buffer" },
     },
     completion = {
       accept = {
