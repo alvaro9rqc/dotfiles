@@ -5,5 +5,11 @@ return {
     "folke/lazydev.nvim",
     "neovim/nvim-lspconfig",
   },
-  opts = {},
+  opts = {
+    plugins = {
+      lspconfig = {
+        enabled = false,
+      },
+    },
+  },
 }

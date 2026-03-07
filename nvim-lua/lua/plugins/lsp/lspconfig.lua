@@ -67,42 +67,14 @@ return {
     -- Capabilities from blink.cmp
     local capabilities = require("blink.cmp").get_lsp_capabilities()
 
-    -- Server configurations
-    local servers = {
-      pyright = {},
-      ts_ls = {},
-      texlab = {},
-      jdtls = {},
-      clangd = {
-        cmd = { "clangd", "--query-driver=/usr/bin/g++" },
-      },
-      lua_ls = {
-        settings = {
-          Lua = {
-            workspace = { checkThirdParty = false },
-            telemetry = { enable = false },
-            diagnostics = {
-              globals = { "vim", "Pacha", "Snacks" },
-            },
-          },
-        },
-      },
-      jsonls = {},
-      yamlls = {},
-      eslint = {},
-      prismals = {},
-      html = {},
-      cssls = {},
-      astro = {},
-      emmet_language_server = {},
-    }
+    local servers = require("core.lsp_servers")
 
-    -- Setup each server
-    for server, config in pairs(servers) do
-      config.on_attach = on_attach
-      config.capabilities = capabilities
-      vim.lsp.config(server, config)
-      vim.lsp.enable(server)
+    for server, server_config in pairs(servers) do
+      local opts = vim.tbl_deep_extend("force", server_config, {
+        on_attach = on_attach,
+        capabilities = capabilities,
+      })
+      vim.lsp.config(server, opts)
     end
   end,
 }
