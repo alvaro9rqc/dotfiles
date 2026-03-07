@@ -1,11 +1,10 @@
 return {
   "zbirenbaum/copilot.lua",
   cmd = "Copilot",
-  -- event = "InsertEnter",
   opts = {
     suggestion = {
-      enabled = true,
-      auto_trigger = true,
+      enabled = false,
+      auto_trigger = false,
       keymap = {
         accept = "<C-l>",
         accept_word = "<M-j>",
@@ -16,13 +15,13 @@ return {
       },
     },
     panel = {
-      enabled = true,
-      auto_refresh = true,
+      enabled = false,
+      auto_refresh = false,
     },
     filetypes = {
+      ["*"] = false,
       markdown = true,
       help = false,
-      ["."] = false,
     },
   },
 }
