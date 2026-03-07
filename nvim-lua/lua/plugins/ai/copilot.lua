@@ -3,8 +3,8 @@ return {
   cmd = "Copilot",
   opts = {
     suggestion = {
-      enabled = false,
-      auto_trigger = false,
+      enabled = true,
+      auto_trigger = true,
       keymap = {
         accept = "<C-l>",
         accept_word = "<M-j>",
@@ -19,7 +19,7 @@ return {
       auto_refresh = false,
     },
     filetypes = {
-      ["*"] = false,
+      ["*"] = true,
       markdown = true,
       help = false,
     },
