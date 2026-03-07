@@ -1,0 +1,22 @@
+snippet i-fig "Insert figure"
+	\begin{figure}[${1:h}]
+		\centering
+		\includegraphics[width=${2:0.7}\textwidth]{${3:your-image-file}}
+		\caption{${4:Caption for the figure}}
+		\label{fig:${5:label}}
+	\end{figure}
+
+snippet figure "Insert figure"
+	\begin{figure}[${1:h}]
+		\centering
+		\includegraphics[width=${2:0.7}\textwidth]{${3:your-image-file}}
+		\caption{${4:Caption for the figure}}
+		\label{fig:${5:label}}
+	\end{figure}
+
+snippet minted "Insert code with minted"
+	\begin{listing}[${1:H}]
+		\inputminted[fontsize=${2:\small}]{${3:text}}{${4:your-file}}
+		\caption{${5:Caption}}
+		\label{lst:${6:act1}}
+	\end{listing}
