@@ -27,7 +27,7 @@ return {
     { "<leader>fh", function() Snacks.picker.help() end,                                 desc = "Help Pages" },
     { "<leader>fk", function() Snacks.picker.keymaps() end,                              desc = "Keymaps" },
     { "<leader>fd", function() Snacks.picker.diagnostics() end,                          desc = "Diagnostics" },
+    { "<leader>fw", function() Snacks.picker.grep_word() end,                            desc = "Visual selection or word", mode = { "n", "x" } },
     -- Notifier
-    { "<leader>un", function() Snacks.notifier.hide() end,                               desc = "Dismiss Notifications" },
   },
 }
