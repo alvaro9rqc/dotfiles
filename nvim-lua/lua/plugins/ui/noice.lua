@@ -24,9 +24,4 @@ return {
       lsp_doc_border = true,
     },
   },
-  keys = {
-    { "<leader>uh", "<cmd>Noice history<cr>", desc = "Noice History" },
-    { "<leader>ul", "<cmd>Noice last<cr>",    desc = "Noice Last Message" },
-    { "<leader>ue", "<cmd>Noice errors<cr>",  desc = "Noice Errors" },
-  },
 }
