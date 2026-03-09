@@ -11,18 +11,19 @@ return {
 			desc = "Format buffer",
 		},
 	},
-	opts = {
-		formatters_by_ft = {},
-		format_on_save = function(bufnr)
-			-- Disable format on save for certain filetypes or if disabled
-			if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
-				return
-			end
-			return { timeout_ms = 3000, lsp_fallback = true }
-		end,
-	},
+	opts = function()
+		local lsp_wrappers = require("core.lsp_wrappers")
+		return {
+			formatters_by_ft = vim.tbl_deep_extend("force", {}, lsp_wrappers.consume_pending_formatters()),
+			format_on_save = function(bufnr)
+				if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+					return
+				end
+				return { timeout_ms = 3000, lsp_fallback = true }
+			end,
+		}
+	end,
 	init = function()
-		-- Toggle format on save
 		vim.g.disable_autoformat = true
 		vim.api.nvim_create_user_command("FormatToggle", function()
 			vim.g.disable_autoformat = not vim.g.disable_autoformat

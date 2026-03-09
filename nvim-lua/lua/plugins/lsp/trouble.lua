@@ -43,14 +43,14 @@ return {
     {
       "<leader>cL",
       function()
-        require("trouble").toggle({ mode = "lsp", focus = false })
+        require("trouble").toggle({ mode = "lsp", focus = false, source = "" })
       end,
-      desc = "LSP List (Trouble)",
+      desc = "LSP List of def. and ref. (Trouble)",
     },
     {
-      "<leader>cS",
+      "<leader>cs",
       function()
-        require("trouble").toggle({ mode = "symbols", focus = false })
+        require("trouble").toggle({ mode = "symbols", focus = false, source = ""})
       end,
       desc = "Symbols (Trouble)",
     },

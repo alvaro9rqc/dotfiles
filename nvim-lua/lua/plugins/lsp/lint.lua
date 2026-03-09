@@ -3,9 +3,9 @@ return {
 	event = { "BufReadPost", "BufNewFile" },
 	config = function()
 		local lint = require("lint")
-		local python_linters = vim.fn.executable("ruff") == 1 and { "ruff" } or {}
+		local lsp_wrappers = require("core.lsp_wrappers")
 
-		lint.linters_by_ft = {}
+		lint.linters_by_ft = vim.tbl_deep_extend("force", {}, lsp_wrappers.consume_pending_linters())
 
 		vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
 			group = vim.api.nvim_create_augroup("nvim-lint", { clear = true }),
