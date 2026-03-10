@@ -3,7 +3,9 @@ return {
   cmd = "Trouble",
   opts = {
     auto_preview = false,
-    win = { position = "right", width = 40 },
+    win = {
+      size = 0.3,
+    },
     modes = {
       diagnostics_buffer = {
         mode = "diagnostics",
@@ -12,47 +14,9 @@ return {
     },
   },
   keys = {
-    {
-      "<leader>xx",
-      function()
-        require("trouble").toggle("diagnostics")
-      end,
-      desc = "Diagnostics (Trouble)",
-    },
-    {
-      "<leader>xX",
-      function()
-        require("trouble").toggle("diagnostics_buffer")
-      end,
-      desc = "Buffer Diagnostics (Trouble)",
-    },
-    {
-      "<leader>xq",
-      function()
-        require("trouble").toggle("qflist")
-      end,
-      desc = "Quickfix List (Trouble)",
-    },
-    {
-      "<leader>xl",
-      function()
-        require("trouble").toggle("loclist")
-      end,
-      desc = "Location List (Trouble)",
-    },
-    {
-      "<leader>cL",
-      function()
-        require("trouble").toggle({ mode = "lsp", focus = false, source = "" })
-      end,
-      desc = "LSP List of def. and ref. (Trouble)",
-    },
-    {
-      "<leader>cs",
-      function()
-        require("trouble").toggle({ mode = "symbols", focus = false, source = ""})
-      end,
-      desc = "Symbols (Trouble)",
-    },
+    { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>",              desc = "Diagnostics (Trouble)", },
+    { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)", },
+    { "<leader>cL", "<cmd>Trouble lsp toggle<cr>",                      desc = "LSP List of def. and ref. (Trouble)", },
+    { "<leader>cs", "<cmd>Trouble symbols toggle focus=false<cr>",      desc = "Symbols (Trouble)", },
   },
 }
