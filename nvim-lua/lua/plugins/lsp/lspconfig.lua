@@ -33,6 +33,7 @@ return {
           vim.keymap.set(mode, lhs, rhs, { buffer = ev.buf, desc = desc })
         end
 
+        map("n", "<leader>cd", vim.lsp.buf.definition, "Go to definition")
         map("n", "<leader>cr", vim.lsp.buf.references, "References")
         map("n", "<leader>ch", vim.lsp.buf.document_highlight, "Highlight references")
         -- map("n", "<leader>cs", vim.lsp.buf.signature_help, "Signature help")
