@@ -4,7 +4,7 @@ return {
   event = "VeryLazy",
   opts = {
     options = {
-      globalstatus = true,
+      -- globalstatus = true,
       disabled_filetypes = { statusline = { "dashboard", "lazy" } },
     },
     sections = {
