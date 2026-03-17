@@ -6,6 +6,25 @@ return {
     win = {
       size = 0.3,
     },
+    keys = {
+      ["<c-t>"] = {
+        action = function(self, ctx)
+          if ctx.item then
+            local item = ctx.item
+            item.buf = item.buf or vim.fn.bufadd(item.filename)
+            if not vim.api.nvim_buf_is_loaded(item.buf) then
+              vim.fn.bufload(item.buf)
+            end
+            vim.cmd("tabnew")
+            local win = vim.api.nvim_get_current_win()
+            vim.api.nvim_win_set_buf(win, item.buf)
+            vim.api.nvim_win_set_cursor(win, item.pos)
+            vim.cmd("norm! zzzv")
+          end
+        end,
+        desc = "Open in new tab",
+      },
+    },
     modes = {
       diagnostics_buffer = {
         mode = "diagnostics",
