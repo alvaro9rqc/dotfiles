@@ -8,7 +8,7 @@ return {
     },
     keys = {
       ["<c-t>"] = {
-        action = function(self, ctx)
+        action = function(_, ctx)
           if ctx.item then
             local item = ctx.item
             item.buf = item.buf or vim.fn.bufadd(item.filename)
@@ -26,9 +26,20 @@ return {
       },
     },
     modes = {
-      diagnostics_buffer = {
-        mode = "diagnostics",
-        filter = { buf = 0 },
+      lsp_base = {
+        params = {
+          include_current = true,
+        }
+      },
+      lsp = {
+        params = {
+          include_current = true,
+        }
+      },
+      lsp_references = {
+        params = {
+          include_current = true,
+        }
       },
     },
   },
