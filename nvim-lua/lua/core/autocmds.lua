@@ -88,19 +88,6 @@ autocmd('FileType', {
   end,
 })
 
--- Save and restore folds
-local folds_group = augroup('remember_folds', { clear = true })
-autocmd('BufWinLeave', {
-  group = folds_group,
-  pattern = '?*',
-  command = 'silent! mkview',
-})
-autocmd('BufWinEnter', {
-  group = folds_group,
-  pattern = '?*',
-  command = 'silent! loadview',
-})
-
 -- Avoid parser/query mismatch errors on vim/help buffers
 autocmd('FileType', {
   group = augroup('disable_ts_vim_help', { clear = true }),
