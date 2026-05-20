@@ -16,6 +16,11 @@ return {
       paths = { vim.fn.stdpath("config") .. "/lua/snippets/snipmate" },
     })
 
+    -- Load from external .lua files
+    require("luasnip.loaders.from_lua").lazy_load({
+      paths = { vim.fn.stdpath("config") .. "/lua/snippets/for_custom_files" },
+    })
+
     -- Configure LuaSnip
     ls.config.set_config({
       history = true,

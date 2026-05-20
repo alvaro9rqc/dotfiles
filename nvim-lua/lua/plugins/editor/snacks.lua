@@ -55,7 +55,7 @@ return {
             list = {
               keys = {
                 ["<C-t>"] = "edit_tab",
-                ["a"] = "git_stage",
+                ["s"] = "git_stage",
               }
             }
           },
@@ -72,7 +72,7 @@ return {
             list = {
               keys = {
                 ["<C-t>"] = "edit_tab",
-                ["a"] = "git_stage",
+                ["s"] = "git_stage",
               }
             }
           },
