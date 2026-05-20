@@ -3,9 +3,9 @@ return {
 	event = { "BufReadPost", "BufNewFile" },
 	config = function()
 		local lint = require("lint")
-		local lsp_wrappers = require("core.lsp_wrappers")
 
-		lint.linters_by_ft = vim.tbl_deep_extend("force", {}, lsp_wrappers.consume_pending_linters())
+		-- Define una tabla base. Puedes dejarla vacía o poner linters globales aquí.
+		lint.linters_by_ft = {}
 
 		vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
 			group = vim.api.nvim_create_augroup("nvim-lint", { clear = true }),
