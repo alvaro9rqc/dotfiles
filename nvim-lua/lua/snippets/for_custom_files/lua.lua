@@ -57,5 +57,39 @@ vim.lsp.config.gopls = {
 }
 vim.lsp.enable("gopls")]], "\n")),
     i(0)
-  })
+  }),
+
+  -- for golang
+  nvim_lua_snippet("lsp_tinymist", "Configuración LSP gopls", {
+    t(vim.split([[
+-- Definición completa sin depender de lspconfig
+vim.lsp.config.tinymist = {
+  cmd = { "tinymist" },
+  filetypes = { "typst" },
+  root_markers = {".nvim.lua", "laboratorio.typ", "typst.toml", ".git" },
+  on_attach = function(client, bufnr)
+    -- client.root_dir es expuesto directamente por la API
+    local root = client.root_dir
+    if not root then
+      vim.notify("Tinymist: No se detectó root_dir", vim.log.levels.WARN)
+      return
+    end
+    local main_file = vim.fs.joinpath(root, "laboratorio.typ")
+    if vim.fn.filereadable(main_file) == 1 then
+      client:request("workspace/executeCommand", {
+        command = "tinymist.pinMain",
+        arguments = { main_file },
+      }, function(err)
+          if err then
+            vim.notify("Tinymist: Error al hacer pin: " .. err.message, vim.log.levels.ERROR)
+          end
+        end, bufnr)
+    else
+      vim.notify("Tinymist: No se encontró " .. main_file, vim.log.levels.ERROR)
+    end
+  end,
+}
+vim.lsp.enable("tinymist")]], "\n")),
+    i(0)
+  }),
 }
