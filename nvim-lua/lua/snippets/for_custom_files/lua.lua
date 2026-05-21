@@ -48,4 +48,14 @@ vim.lsp.enable('jdtls')]], "\n")),
 
     i(0) -- Nodo final donde se quedará el cursor tras expandir
   }),
+  -- for golang
+  nvim_lua_snippet("lsp_gopls", "Configuración LSP gopls", {
+    t(vim.split([[
+local root_dir = vim.fs.root(0, { "go.mod", "proto" }) or vim.fn.getcwd()
+vim.lsp.config.gopls = {
+  root_dir = root_dir
+}
+vim.lsp.enable("gopls")]], "\n")),
+    i(0)
+  })
 }
