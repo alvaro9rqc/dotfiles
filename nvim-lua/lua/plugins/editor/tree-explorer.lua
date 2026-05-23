@@ -50,6 +50,22 @@ return {
 
     return {
       sort = { sorter = "case_sensitive" },
+      diagnostics = {
+        enable = true,
+        show_on_dirs = true, -- Muestra el icono de diagnóstico en la carpeta si un archivo dentro tiene errores
+        show_on_open_dirs = true,
+        debounce_delay = 50,
+        severity = {
+          min = vim.diagnostic.severity.HINT,
+          max = vim.diagnostic.severity.ERROR,
+        },
+        icons = {
+          hint = Pacha.icons.diagnostics.Hint,
+          info = Pacha.icons.diagnostics.Info,
+          warning = Pacha.icons.diagnostics.Warn,
+          error = Pacha.icons.diagnostics.Error,
+        },
+      },
       view = {
         number = true,
         width = 40,
@@ -62,14 +78,14 @@ return {
         },
         icons = {
           git_placement = "right_align",
-          diagnostics_placement = "right_align",
+          diagnostics_placement = "before",
           modified_placement = "right_align",
           glyphs = {
             default = Pacha.icons.kinds.File,
             git = {
               unstaged = Pacha.icons.git.modified,
               deleted = Pacha.icons.git.removed,
-              untracked = Pacha.icons.git.added, -- o " " si prefieres el estático
+              untracked = Pacha.icons.git.untracked,
               staged = Pacha.icons.git.staged,
               unmerged = Pacha.icons.git.unmerged,
               renamed = Pacha.icons.git.renamed,
