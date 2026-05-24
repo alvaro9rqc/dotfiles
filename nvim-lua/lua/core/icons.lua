@@ -21,9 +21,14 @@ return {
     Info  = " i",
   },
   git = {
-    added    = " ",
-    modified = " ",
-    removed  = " ",
+    added     = " ",
+    modified  = " ",
+    removed   = " ",
+    untracked = "󰞋 ",
+    staged    = "✓ ",
+    unmerged  = " ",
+    renamed   = "➜ ",
+    ignored   = "◌ ",
   },
   kinds = {
     Array         = " ",

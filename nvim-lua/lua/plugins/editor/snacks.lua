@@ -39,7 +39,7 @@ return {
       input = { enabled = true },
       indent = { enabled = false },
       scope = { enabled = true },
-      scroll = { enabled = false },
+      scroll = { enabled = true },
       statuscolumn = { enabled = false },
       words = { enabled = true },
     }
@@ -47,24 +47,24 @@ return {
   -- luacheck: globals Snacks
   keys = {
     -- Find
+    -- {
+    --   "<leader>tE",
+    --   function()
+    --     require("snacks").picker.explorer({
+    --       win = {
+    --         list = {
+    --           keys = {
+    --             ["<C-t>"] = "edit_tab",
+    --             ["s"] = "git_stage",
+    --           }
+    --         }
+    --       },
+    --     })
+    --   end,
+    --   desc = "Explorer (not close)",
+    -- },
     {
       "<leader>tE",
-      function()
-        require("snacks").picker.explorer({
-          win = {
-            list = {
-              keys = {
-                ["<C-t>"] = "edit_tab",
-                ["s"] = "git_stage",
-              }
-            }
-          },
-        })
-      end,
-      desc = "Explorer (not close)",
-    },
-    {
-      "<leader>te",
       function()
         require("snacks").picker.explorer({
           jump = { close = true },
