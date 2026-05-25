@@ -38,9 +38,9 @@ return {
 
       input = { enabled = true },
       indent = { enabled = false },
-      scope = { enabled = true },
-      scroll = { enabled = true },
-      statuscolumn = { enabled = false },
+      -- scope = { enabled = true },
+      -- scroll = { enabled = true },
+      -- statuscolumn = { enabled = false },
       words = { enabled = true },
     }
   end,
