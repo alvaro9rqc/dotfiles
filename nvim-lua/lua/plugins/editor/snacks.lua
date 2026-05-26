@@ -46,23 +46,20 @@ return {
   end,
   -- luacheck: globals Snacks
   keys = {
-    -- Find
-    -- {
-    --   "<leader>tE",
-    --   function()
-    --     require("snacks").picker.explorer({
-    --       win = {
-    --         list = {
-    --           keys = {
-    --             ["<C-t>"] = "edit_tab",
-    --             ["s"] = "git_stage",
-    --           }
-    --         }
-    --       },
-    --     })
-    --   end,
-    --   desc = "Explorer (not close)",
-    -- },
+    -- words
+    {
+      "]r",
+      function() Snacks.words.jump(1) end,
+      desc = "Next Reference",
+      mode = { "n", "t" },
+    },
+    {
+      "[r",
+      function() Snacks.words.jump(-1) end,
+      desc = "Prev Reference",
+      mode = { "n", "t" },
+    },
+    -- explorer
     {
       "<leader>tE",
       function()
@@ -85,6 +82,7 @@ return {
       function() Snacks.picker.files() end,
       desc = "Find Files"
     },
+    -- picker
     {
       "<leader>fg",
       function() Snacks.picker.git_files() end,
