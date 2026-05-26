@@ -31,27 +31,23 @@ vim.diagnostic.config({
   float = { border = "rounded", source = true },
 })
 
-vim.api.nvim_create_autocmd("LspAttach", {
-  group = vim.api.nvim_create_augroup("PachaLspConfig", { clear = true }),
-  callback = function(ev)
-    local map = function(mode, lhs, rhs, desc)
-      vim.keymap.set(mode, lhs, rhs, { buffer = ev.buf, desc = desc })
-    end
-    map("n", "<leader>cd", vim.lsp.buf.definition, "Go to definition")
-    map("n", "<leader>ch", vim.lsp.buf.document_highlight, "Highlight references")
-  end
-})
-
--- 3. Definición nativa del servidor lua_ls
 vim.lsp.config.lua_ls = {
   cmd = { "lua-language-server" },
   filetypes = { "lua" },
   settings = {
     Lua = {
+      format = {
+        enable = true,
+        defaultConfig = {
+          indent_style = "space",
+          indent_size = "2",
+        },
+      },
+      diagnostics = {
+        globals = { "vim", "Pacha" },
+      },
       telemetry = { enable = false },
     },
-  }
+  },
 }
-
--- 4. Activar el servidor
 vim.lsp.enable("lua_ls")
