@@ -13,6 +13,9 @@ return {
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
+    keymap = {
+      preset = "default",
+    },
     snippets = {
       preset = "luasnip",
     },
@@ -29,7 +32,7 @@ return {
           treesitter = { "lsp" },
           columns = {
             { "kind_icon" },
-            { "label", "label_description", gap = 1 },
+            { "label",      "label_description", gap = 1 },
             { "source_name" },
           },
         },
