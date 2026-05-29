@@ -106,3 +106,13 @@ autocmd('BufEnter', {
     end
   end,
 })
+
+autocmd('FileType', {
+  group = augroup('markdown_format', { clear = true }),
+  pattern = 'markdown',
+  callback = function()
+    vim.opt_local.wrap = false
+    vim.opt_local.colorcolumn = "80"
+    vim.opt_local.textwidth = 80
+  end,
+})
