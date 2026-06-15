@@ -30,6 +30,15 @@ vim.diagnostic.config({
   severity_sort = true,
   float = { border = "rounded", source = true },
 })
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(event)
+    local opts = { buffer = event.buf, remap = false }
+    opts.desc = "Go to definition"
+    vim.keymap.set("n", "<leader>cd", vim.lsp.buf.definition, opts)
+    opts.desc = "Go to declaration"
+    vim.keymap.set("n", "cD", vim.lsp.buf.declaration, opts)
+  end,
+})
 
 vim.lsp.config.lua_ls = {
   cmd = { "lua-language-server" },
