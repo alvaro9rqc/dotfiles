@@ -7,6 +7,7 @@ return {
     },
     heading = {
       sign = false,
+      width = 'block',
     },
     code = {
       sign = false,
