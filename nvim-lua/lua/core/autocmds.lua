@@ -113,6 +113,8 @@ autocmd('FileType', {
   callback = function()
     -- vim.opt_local.wrap = false
     -- vim.opt_local.colorcolumn = "80"
+    vim.o.shiftwidth = 2
+    vim.o.tabstop = 2
     vim.opt_local.textwidth = 80
   end,
 })
