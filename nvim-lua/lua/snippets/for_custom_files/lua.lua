@@ -59,7 +59,7 @@ vim.lsp.enable("gopls")]], "\n")),
     i(0)
   }),
 
-  -- for golang
+  -- for typst
   nvim_lua_snippet("lsp_tinymist", "Configuración LSP gopls", {
     t(vim.split([[
 -- Definición completa sin depender de lspconfig
