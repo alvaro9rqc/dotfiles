@@ -60,8 +60,10 @@ autocmd({ 'BufNewFile', 'BufRead' }, {
   end,
 })
 
--- Enable Treesitter highlighting explicitly (new nvim-treesitter API)
--- Auto-installs missing parsers on first open
+-- Enable Tree-sitter features explicitly (nvim-treesitter's current API).
+-- Parser installation belongs to the plugin spec/build step, not to opening a
+-- buffer: automatically installing every parser that happens to have a known
+-- filetype makes the global configuration slow and non-deterministic.
 autocmd('FileType', {
   group = augroup('enable_treesitter', { clear = true }),
   pattern = '*',
@@ -77,33 +79,11 @@ autocmd('FileType', {
       return -- Do nothing
     end
 
-    if pcall(vim.treesitter.start, args.buf) then
-      vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-      vim.wo[0][0].foldmethod = 'expr'
-      vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-    else
-      -- Just install if exits
-      pcall(function() require("nvim-treesitter").install({ lang }) end)
-    end
-  end,
-})
+    if not pcall(vim.treesitter.start, args.buf) then return end
 
--- Avoid parser/query mismatch errors on vim/help buffers
-autocmd('FileType', {
-  group = augroup('disable_ts_vim_help', { clear = true }),
-  pattern = { 'vim', 'help' },
-  callback = function(args)
-    pcall(vim.treesitter.stop, args.buf)
-  end,
-})
-
-autocmd('BufEnter', {
-  group = augroup('disable_ts_vim_help_enter', { clear = true }),
-  callback = function(args)
-    local ft = vim.bo[args.buf].filetype
-    if ft == 'vim' or ft == 'help' then
-      pcall(vim.treesitter.stop, args.buf)
-    end
+    vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+    vim.wo[0][0].foldmethod = 'expr'
+    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
   end,
 })
 

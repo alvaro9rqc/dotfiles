@@ -1,8 +1,0 @@
-### Request
-POST {{CURSOR}}
-Content-Type: application/json
-#Authorization: Bearer your_token_here
-{
-  "key1": "value1"
-}
-

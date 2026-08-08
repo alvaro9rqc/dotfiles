@@ -70,12 +70,6 @@ vim.opt.fillchars = { foldopen = "", foldclose = "" }
 -- vim.opt.signcolumn = "number"
 vim.opt.viewoptions:append({ "folds", "cursor", "curdir" })
 
-pcall(function()
-  vim.treesitter.query.set("vim", "highlights", "")
-  vim.treesitter.query.set("vimdoc", "highlights", "")
-end)
-
-
 --------------------------
 --------------------------
 -- IGNORED FILES

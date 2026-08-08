@@ -68,8 +68,48 @@ return {
           win = {
             list = {
               keys = {
+                -- Navigation & Open
+                ["<CR>"] = "confirm",
+                ["o"] = "confirm",
                 ["<C-t>"] = "edit_tab",
-                ["s"] = "git_stage",
+                ["<C-v>"] = "edit_vsplit",
+                ["<C-s>"] = "edit_split",
+                ["<Tab>"] = "toggle_preview",
+                ["-"] = "explorer_up",
+                ["<BS>"] = "explorer_close",
+                ["W"] = "explorer_close_all",
+                ["q"] = "close",
+
+                -- File Operations
+                ["a"] = "explorer_add",
+                ["d"] = "explorer_del",
+                ["r"] = "explorer_rename",
+                ["c"] = "explorer_copy",
+                ["p"] = "explorer_paste",
+                ["y"] = { "explorer_yank", mode = { "n", "x" } },
+                ["s"] = "explorer_open",   -- Matches nvim-tree "Run System"
+                ["R"] = "explorer_update", -- Matches nvim-tree "Refresh"
+
+                -- Toggles
+                ["H"] = "toggle_hidden",
+                ["I"] = "toggle_ignored",
+
+                -- Diagnostics & Git Navigation (Matches your custom mappings)
+                ["]d"] = "explorer_diagnostic_next",
+                ["[d"] = "explorer_diagnostic_prev",
+                ["]g"] = "explorer_git_next",
+                ["[g"] = "explorer_git_prev",
+
+                -- Git Stage/Unstage
+                ["gs"] = "git_stage",
+                ["gu"] = function(picker)
+                  -- Custom action to mimic your nvim-tree git_unstage
+                  local item = picker:current()
+                  if item and item.file then
+                    vim.fn.system("git restore --staged " .. vim.fn.shellescape(item.file))
+                    picker:find() -- Refresh the picker
+                  end
+                end,
               }
             }
           },

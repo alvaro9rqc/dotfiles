@@ -18,12 +18,14 @@ return {
       vim.keymap.del("n", "[c", { buffer = bufnr })
       vim.keymap.del("n", "]c", { buffer = bufnr })
       vim.keymap.del("n", "<C-e>", { buffer = bufnr })
+      vim.keymap.del("n", "<C-x>", { buffer = bufnr })
 
       -- Customs maps
       vim.keymap.set("n", "]d", api.node.navigate.diagnostics.next, opts("Next Diagnostic"))
       vim.keymap.set("n", "[d", api.node.navigate.diagnostics.prev, opts("Prev Diagnostic"))
       vim.keymap.set("n", "]g", api.node.navigate.git.next, opts("Next Git"))
       vim.keymap.set("n", "[g", api.node.navigate.git.prev, opts("Prev Git"))
+      vim.keymap.set("n", "<C-s>", api.node.open.horizontal, opts("Open: Horizontal Split"))
 
       -- Git Stage/Unstage
       local function git_stage()

@@ -1,3 +1,0 @@
-CompileFlags:
-  Add: [-std=c17]  
-  Compiler: /usr/bin/gcc
