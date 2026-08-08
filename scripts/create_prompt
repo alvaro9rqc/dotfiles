@@ -1,0 +1,132 @@
+#!/usr/bin/env python3
+import os
+import sys
+import argparse
+import fnmatch
+from pathlib import Path
+
+DEFAULT_IGNORES = {'.venv', 'venv', 'env', 'node_modules', '__pycache__', '.git', 'build', 'dist', 'out', 'target'}
+
+def parse_gitignore(base_dir):
+    """Lee el archivo .gitignore y devuelve una lista de patrones."""
+    gitignore_path = base_dir / '.gitignore'
+    patterns = []
+    if gitignore_path.exists():
+        with open(gitignore_path, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith('#'):
+                    patterns.append(line)
+    return patterns
+
+def is_ignored(path, base_dir, gitignore_patterns, ignore_deps):
+    """Verifica si un directorio o archivo debe ser ignorado."""
+    # 1. Chequeo rápido de exclusiones por defecto
+    if ignore_deps and path.name in DEFAULT_IGNORES:
+        return True
+
+    # 2. Verificación de reglas del .gitignore
+    if gitignore_patterns:
+        rel_path = path.relative_to(base_dir)
+        rel_str = str(rel_path).replace(os.sep, '/')
+
+        for pattern in gitignore_patterns:
+            clean_pattern = pattern[:-1] if pattern.endswith('/') else pattern
+            if fnmatch.fnmatch(rel_str, pattern) or fnmatch.fnmatch(path.name, clean_pattern):
+                return True
+
+    return False
+
+def build_file_list(base_dir, exts, ignore_deps):
+    """Construye la lista de archivos con poda de directorios para optimización."""
+    valid_files = []
+    gitignore_patterns = parse_gitignore(base_dir)
+    ext_list = [e.strip() for e in exts.split(',')] if exts else None
+
+    for root, dirs, files in os.walk(base_dir):
+        root_path = Path(root)
+
+        # OPTIMIZACIÓN: Modificar 'dirs' in-place para podar la búsqueda de raíz.
+        # Evita que os.walk escanee miles de archivos dentro de carpetas ignoradas.
+        dirs[:] = [d for d in dirs if not is_ignored(root_path / d, base_dir, gitignore_patterns, ignore_deps)]
+
+        for file in files:
+            file_path = root_path / file
+
+            if is_ignored(file_path, base_dir, gitignore_patterns, ignore_deps):
+                continue
+
+            if ext_list and not any(fnmatch.fnmatch(file, ext) for ext in ext_list):
+                continue
+
+            valid_files.append(file_path)
+
+    return sorted(valid_files)
+
+def print_tree(valid_files, base_dir):
+    """Imprime una vista de árbol para los archivos."""
+    tree = {}
+    for path in valid_files:
+        rel_path = path.relative_to(base_dir)
+        current = tree
+        for part in rel_path.parts:
+            current = current.setdefault(part, {})
+
+    def display_tree(node, prefix=""):
+        items = list(node.items())
+        for i, (name, children) in enumerate(items):
+            is_last = (i == len(items) - 1)
+            print(f"{prefix}{'└── ' if is_last else '├── '}{name}")
+            if children:
+                display_tree(children, prefix + ("    " if is_last else "│   "))
+
+    display_tree(tree)
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Extrae el contexto de archivos locales para alimentar modelos LLM.",
+        formatter_class=argparse.RawTextHelpFormatter,
+        epilog="""
+Ejemplos de uso:
+  get_context                         (Lee todo excepto dependencias comunes y .gitignore)
+  get_context -e "*.py,*.md"          (Filtra solo Python y Markdown)
+  get_context --include-deps          (Fuerza la lectura de entornos virtuales y modulos)
+        """
+    )
+    parser.add_argument('-e', '--exts', type=str, default='',
+                        help='Filtra por extensiones o patrones específicos, separados por coma.\nEjemplo: "*.md,*.csv,*.txt"')
+    parser.add_argument('--include-deps', action='store_true',
+                        help='Desactiva la omisión automática de directorios pesados por defecto\n(como node_modules, .venv, .git, etc.).')
+
+    args = parser.parse_args()
+    base_dir = Path.cwd()
+    ignore_deps = not args.include_deps
+
+    valid_files = build_file_list(base_dir, args.exts, ignore_deps)
+
+    if not valid_files:
+        print("Error: No se encontraron archivos bajo los criterios actuales.", file=sys.stderr)
+        sys.exit(1)
+
+    # Imprimir estructura solicitada
+    print(f"ruta absoluta: {base_dir}\n")
+    print("vista de arbol:")
+    print(f"{base_dir.name}/")
+    print_tree(valid_files, base_dir)
+    print("\n")
+
+    for file_path in valid_files:
+        rel_path = file_path.relative_to(base_dir)
+        print(f"path relativo: {rel_path}")
+        print("BEGINNING_OF_FILE {")
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                print(f.read().rstrip())
+        except UnicodeDecodeError:
+            print("[Archivo ignorado: Binario o no compatible con UTF-8]")
+        except Exception as e:
+            print(f"[Archivo ignorado: Error de lectura - {e}]")
+        print("} END_OF_FILE\n")
+
+if __name__ == '__main__':
+    main()
