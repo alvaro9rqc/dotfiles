@@ -1,2 +1,2 @@
 x=$(cat)
-echo -n "$x" | xclip -selection clipboard
+echo -n "$x" | wl-copy
