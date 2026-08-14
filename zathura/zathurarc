@@ -1,0 +1,10 @@
+set guioptions hv
+
+set zoom-max 5000
+set zoom-min 10
+set zoom-step 10
+
+map = zoom in
+map - zoom out
+
+set selection-clipboard clipboard
