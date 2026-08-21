@@ -1,0 +1,20 @@
+# Apply Caelestia's official terminal sequence file, matching the integration
+# used by the bundled Fish configuration. Terminal OSC colours persist after a
+# shell exits, so using one source prevents Fish and Zsh from installing two
+# different palettes.
+if [[ -o interactive && -z "$TMUX" && -r "$HOME/.local/state/caelestia/sequences.txt" ]]; then
+  command cat "$HOME/.local/state/caelestia/sequences.txt"
+fi
+
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="intheloop"
+
+plugins=(
+  git
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+)
+
+source "$ZSH/oh-my-zsh.sh"
+
+source "$HOME/dotfiles/zsh/settings.zsh"

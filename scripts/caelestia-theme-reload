@@ -1,0 +1,82 @@
+#!/usr/bin/env sh
+
+# Caelestia's native terminal integration is disabled because it includes OSC
+# 11, which replaces Foot's transparent background. Build and broadcast the
+# rest of the active palette without ever emitting a background sequence.
+state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/caelestia"
+scheme_file="$state_dir/scheme.json"
+safe_sequences_file="$state_dir/sequences-no-background.txt"
+
+if command -v jq >/dev/null 2>&1 && [ -r "$scheme_file" ]; then
+  colours_json="${SCHEME_COLOURS:-$(jq -c '.colours' "$scheme_file" 2>/dev/null)}"
+
+  colour() {
+    printf '%s' "$colours_json" | jq -er --arg name "$1" '.[$name]' 2>/dev/null
+  }
+
+  osc_rgb() {
+    osc_code=$1
+    hex_colour=$2
+    printf '\033]%s;rgb:%s/%s/%s\033\\' \
+      "$osc_code" \
+      "$(printf '%s' "$hex_colour" | cut -c 1-2)" \
+      "$(printf '%s' "$hex_colour" | cut -c 3-4)" \
+      "$(printf '%s' "$hex_colour" | cut -c 5-6)"
+  }
+
+  safe_sequences=$(
+    osc_rgb 10 "$(colour onSurface)"
+    osc_rgb 12 "$(colour secondary)"
+    osc_rgb 17 "$(colour secondary)"
+
+    colour_index=0
+    while [ "$colour_index" -le 15 ]; do
+      osc_rgb "4;$colour_index" "$(colour "term$colour_index")"
+      colour_index=$((colour_index + 1))
+    done
+
+    osc_rgb '4;16' "$(colour primary)"
+    osc_rgb '4;17' "$(colour secondary)"
+    osc_rgb '4;18' "$(colour tertiary)"
+  )
+
+  mkdir -p "$state_dir"
+  temporary_sequences="$(mktemp "$state_dir/sequences-no-background.XXXXXX")"
+  printf '%s' "$safe_sequences" >"$temporary_sequences"
+  mv "$temporary_sequences" "$safe_sequences_file"
+
+  for terminal_tty in /dev/pts/[0-9]*; do
+    if [ -w "$terminal_tty" ]; then
+      # Reset any old dynamic background first, then apply only the safe
+      # foreground/cursor/ANSI palette. This also works when tmux is stopped.
+      printf '\033]111\033\\%s' "$safe_sequences" >"$terminal_tty" 2>/dev/null || :
+    fi
+  done
+fi
+
+if ! command -v tmux >/dev/null 2>&1 || ! tmux list-sessions >/dev/null 2>&1; then
+  exit 0
+fi
+
+tmux source-file "$HOME/.tmux.conf"
+
+# Keep pane styles on the terminal default. The tmux theme owns status-style
+# (including its transparent background), so do not replace that full style
+# after sourcing the plugin.
+tmux set-option -g window-style default
+tmux set-option -g window-active-style default
+
+tmux list-panes -a -F '#{pane_id}' | while IFS= read -r pane_id; do
+  tmux set-option -p -u -t "$pane_id" window-style 2>/dev/null || :
+  tmux set-option -p -u -t "$pane_id" window-active-style 2>/dev/null || :
+done
+
+# Reset legacy OSC 11 state left by older configurations. New scheme changes do
+# not send a background colour at all.
+tmux list-clients -F '#{client_name}	#{client_tty}' |
+  while IFS="$(printf '\t')" read -r client_name client_tty; do
+    if [ -n "$client_tty" ] && [ -w "$client_tty" ]; then
+      printf '\033]111\033\\' >"$client_tty"
+    fi
+    tmux refresh-client -t "$client_name" 2>/dev/null || :
+  done
