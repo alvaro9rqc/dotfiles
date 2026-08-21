@@ -46,6 +46,12 @@ return {
   end,
   -- luacheck: globals Snacks
   keys = {
+    -- command palete
+    {
+      "<leader>fcp",
+      function() Snacks.picker.commands() end,
+      desc = "Command Palette",
+    },
     -- words
     {
       "]r",
@@ -144,7 +150,7 @@ return {
       desc = "Grep (Current Buffer Dir)"
     },
     {
-      "<leader>fc",
+      "<leader>fch",
       function() Snacks.picker.command_history() end,
       desc = "Command History"
     },

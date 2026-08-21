@@ -89,3 +89,4 @@ vim.g.skip_defaults_vim = 1
 require("core.maps")
 require("core.autocmds")
 require("core.lsp")
+require("core.user_commands")
