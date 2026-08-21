@@ -1,5 +1,6 @@
 return {
   "tpope/vim-fugitive",
+  lazy = not vim.fs.root(0, ".git"),
   cmd = { "G", "Git", "Gwrite", "Gvdiffsplit" },
   keys = {
     { "<leader>gg", "<cmd>G<cr>", desc = "Git status" },
