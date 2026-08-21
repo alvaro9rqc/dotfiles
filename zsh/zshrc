@@ -17,4 +17,5 @@ plugins=(
 
 source "$ZSH/oh-my-zsh.sh"
 
+source "$HOME/dotfiles/zsh/keys.zsh"
 source "$HOME/dotfiles/zsh/settings.zsh"
