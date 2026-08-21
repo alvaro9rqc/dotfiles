@@ -1,11 +1,16 @@
 #!/usr/bin/env sh
 
-if command -v nvim >/dev/null 2>&1; then
+nvim_bin=$(command -v nvim 2>/dev/null || :)
+if [ -z "$nvim_bin" ] && [ -x "$HOME/.local/share/bob/nvim-bin/nvim" ]; then
+  nvim_bin="$HOME/.local/share/bob/nvim-bin/nvim"
+fi
+
+if [ -n "$nvim_bin" ]; then
   runtime_dir=${XDG_RUNTIME_DIR:-/run/user/$(id -u)}
 
   for nvim_server in "$runtime_dir"/nvim.*; do
     [ -S "$nvim_server" ] || continue
-    nvim --server "$nvim_server" \
+    "$nvim_bin" --server "$nvim_server" \
       --remote-send '<Cmd>lua CaelestiaApplyTheme()<CR>' >/dev/null 2>&1 || :
   done
 fi
