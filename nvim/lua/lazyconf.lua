@@ -30,6 +30,9 @@ require("lazy").setup({
   },
   -- automatically check for plugin updates
   install = { colorscheme = { "tokyonight-moon", "gruvbox" } },
-  checker = { enabled = true },
+  checker = {
+    enabled = true,
+    frequency = 7 * 24 * 60 * 60,
+  },
   rocks = { enabled = true },
 })
